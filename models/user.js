@@ -1,11 +1,6 @@
 var mongoose = require("mongoose");
 
 var userSchema = mongoose.Schema({
-  _id: {
-    $oid: {
-      type: "ObjectId",
-    },
-  },
   name: {
     type: "String",
   },

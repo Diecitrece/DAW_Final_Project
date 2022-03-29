@@ -5,7 +5,7 @@ const styles = {
     "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900",
 };
 
-export default function Home() {
+export default function Login() {
   return (
     <>
       <center>

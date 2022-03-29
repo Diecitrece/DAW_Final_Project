@@ -10,7 +10,7 @@ export default function Login() {
     <>
       <center>
         <img src="https://mestreacasa.gva.es/c/document_library/get_file?folderId=500009883339&name=DLFE-600502.png"></img>
-        <button class={styles.loginButton} onClick={() => signIn()}>
+        <button class={styles.loginButton} onClick={() => signIn("google")}>
           Login
         </button>
       </center>

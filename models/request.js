@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-var requestSchema = mongoose.Schema({
+const requestSchema = new mongoose.Schema({
   name: {
     type: "String",
   },
@@ -12,6 +12,6 @@ var requestSchema = mongoose.Schema({
   },
 });
 
-var requests = db.model("requests", requestSchema);
-
-module.exports = requests; // this is what you want
+const requests =
+  mongoose.models.requests || mongoose.model("requests", requestSchema);
+export default requests;

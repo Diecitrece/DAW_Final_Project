@@ -2,5 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
 }
+const env = {
+    mongodburl: "Your MongoDB connection String",
+}
 
-module.exports = nextConfig
+module.exports = nextConfig || env

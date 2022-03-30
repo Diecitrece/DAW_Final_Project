@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-var bookSchema = mongoose.Schema({
+const bookSchema = new mongoose.Schema({
   name: {
     type: "String",
   },
@@ -12,6 +12,6 @@ var bookSchema = mongoose.Schema({
   },
 });
 
-var books = db.model("books", bookSchema);
 
-module.exports = books; // this is what you want
+const books = mongoose.models.books || mongoose.model('books', bookSchema);
+export default books;

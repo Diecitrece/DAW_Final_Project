@@ -2,7 +2,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function AdminIndex() {
+export default function PublicIndex() {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -17,9 +17,9 @@ export default function AdminIndex() {
         router.push("/login");
       }
     } else {
-      router.push("/login");
-    }
+        router.push("/login");
+      }
   }, [session]);
 
-  return <>Admin</>;
+  return <>Cliente</>;
 }

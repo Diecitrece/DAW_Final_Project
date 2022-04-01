@@ -8,17 +8,9 @@ export default function PublicIndex() {
 
   useEffect(() => {
     console.log(session);
-    if (session) {
-      if (session.user.role == "Admin") {
-        router.push("/admin/indexTest");
-      } else if (session.user.role == "Client") {
-        router.push("/public/indexTest");
-      } else {
-        router.push("/login");
-      }
-    } else {
-        router.push("/login");
-      }
+    if (session == null) {
+      router.push("/login");
+    }
   }, [session]);
 
   return <>Cliente</>;

@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -11,23 +11,32 @@ export default function AdminIndex() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (session) {
-      console.log(session);
-      if (session.user.role != "Admin") {
-        router.push("/public/indexTest");
-      }
-    } else {
-      router.push("/login");
+  if (typeof window === "undefined") {
+    return null;
+  }
+  if (session) {
+    if (session.user.role == "Admin") {
+      return (
+        <>
+          Admin
+          <button className={styles.loginButton} onClick={() => signOut()}>
+            Logout
+          </button>
+          <a href="/public/indexTest">Public</a>
+        </>
+      );
     }
-  }, [session]);
+    router.push("/public/indexTest");
+    return null;
+  }
+  router.push("/login");
+  return null;
+}
 
-  return (
-    <>
-      Admin
-      <button className={styles.loginButton} onClick={() => signOut()}>
-        Logout
-      </button>
-    </>
-  );
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      session: await getSession(context),
+    },
+  };
 }

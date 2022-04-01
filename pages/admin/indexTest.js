@@ -7,7 +7,7 @@ const styles = {
     "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900",
 };
 
-export default function PublicIndex() {
+export default function AdminIndex() {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -15,14 +15,19 @@ export default function PublicIndex() {
     return null;
   }
   if (session) {
-    return (
-      <>
-        Pagina Principal
-        <button className={styles.loginButton} onClick={() => signOut()}>
-          Logout
-        </button>
-      </>
-    );
+    if (session.user.role == "Admin") {
+      return (
+        <>
+          Admin
+          <button className={styles.loginButton} onClick={() => signOut()}>
+            Logout
+          </button>
+          <a href="/public/indexTest">Public</a>
+        </>
+      );
+    }
+    router.push("/public/indexTest");
+    return null;
   }
   router.push("/login");
   return null;

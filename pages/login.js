@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -11,20 +11,11 @@ export default function Login() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (session) {
-      console.log(session);
-      if (session.user.role == "Admin") {
-        router.push("/admin/indexTest");
-      } else if (session.user.role == "Client") {
-        router.push("/public/indexTest");
-      } else {
-        router.push("/login");
-      }
-    } else {
-      router.push("/login");
-    }
-  }, [session]);
+  if (typeof window === "undefined") return null;
+  if (session) {
+    router.push("/");
+    return null;
+  }
 
   return (
     <>
@@ -36,4 +27,12 @@ export default function Login() {
       </center>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      session: await getSession(context),
+    },
+  };
 }

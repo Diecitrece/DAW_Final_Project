@@ -7,7 +7,7 @@ const styles = {
     "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900",
 };
 
-export default function PublicIndex() {
+export default function MainPublic() {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -17,7 +17,7 @@ export default function PublicIndex() {
   if (session) {
     return (
       <>
-        Pagina Principal
+        Client
         <button className={styles.loginButton} onClick={() => signOut()}>
           Logout
         </button>

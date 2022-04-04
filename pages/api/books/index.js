@@ -9,6 +9,7 @@ export default async function handler (req, res) {
   switch (method) {
     case 'GET':
       try {
+        if (req.query.id) { res.status(200).json(await Books.findById(req.query.id))}
         res.status(200).json(await Books.find({}))
       } catch (error) {
         res.status(400).json({ success: false })

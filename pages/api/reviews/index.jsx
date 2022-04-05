@@ -1,6 +1,6 @@
 import dbConnect from "../../../lib/dbConnect";
 import Books from "../../../models/book";
-import { v4 as uuidv4 } from "uuid";
+import mongoose from "mongoose";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -52,15 +52,14 @@ export default async function handler(req, res) {
         });
 
         if (review.idReview == "") {
-            console.log("le aigno la id");
-          const idUnique = uuidv4();
-          console.log(idUnique);
+            
+          //create an objectid with mongoose
+          const idUnique = mongoose.Types.ObjectId();
           review.idReview = idUnique;
-        }else{
-            console.log("no le aigno la id");
+
         }
 
-        //console.log(review.idReview);
+
 
         if (reviewExist.length === 0) {
           const book = await Books.findOneAndUpdate(

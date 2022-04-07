@@ -9,12 +9,17 @@ export default async function handler (req, res) {
   switch (method) {
     case 'GET':
       try {
-        const users = await Users.find({})
-        res.status(200).json({users})
+        if (req.query.id) { 
+          res.status(200).json(await Users.findById(req.query.id))
+        }else{
+          res.status(200).json(await Users.find({}))
+        }
+            
       } catch (error) {
         res.status(400).json({ success: false })
       }
-      break
+      break;
+
     default:
       break
   }

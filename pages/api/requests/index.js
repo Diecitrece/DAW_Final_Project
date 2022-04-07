@@ -9,12 +9,11 @@ export default async function handler (req, res) {
 
   switch (method) {
     case 'GET':
-      try {
+      if (req.query.id) { 
+        res.status(200).json(await Request.findById(req.query.id))
+      }else{
         res.status(200).json(await Request.find({}))
-      } catch (error) {
-        res.status(400).json({ success: false })
       }
-      break
     case 'POST':
       try {
         const request = new Request(req.body);

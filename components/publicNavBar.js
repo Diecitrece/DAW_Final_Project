@@ -1,6 +1,7 @@
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const styles = {
   liNavBar:
@@ -14,13 +15,17 @@ const styles = {
 export const PublicNavBar = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const [menuMobileState, setMenuMobileState] = useState("hidden");
+  useEffect(() => {
+  }, [menuMobileState]);
+
   return (
     <>
       <link
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
         rel="stylesheet"
       />
-      <nav className="bg-white border-gray-200 px-2 rounded-br-lg rounded-bl-lg sm:px-4 py-2.5 dark:bg-gray-800">
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800">
         <div className="container flex flex-row m-auto justify-between">
           <Link href="/">
             <a className="flex items-center">
@@ -62,6 +67,12 @@ export const PublicNavBar = () => {
               className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="mobile-menu-3"
               aria-expanded="false"
+              onClick={() => {
+                menuMobileState == "hidden"
+                  ? setMenuMobileState("")
+                  : setMenuMobileState("hidden");
+                console.log(menuMobileState);
+              }}
             >
               <svg
                 className="w-6 h-6"
@@ -89,10 +100,17 @@ export const PublicNavBar = () => {
               </svg>
             </button>
           </div>
-          <div className="hidden justify-between items-center w-full md:flex md:w-auto md:order-4">
-            <a href="#" className={styles.closeSession}>
+          <div className="hidden justify-between items-center w-full md:flex md:w-auto md:order-5">
+            <a
+              href="#"
+              className={styles.closeSession}
+              onClick={() => signOut()}
+            >
               <i className="fas fa-sign-out-alt text"></i>
             </a>
+          </div>
+          <div className="hidden justify-between items-center w-full md:flex md:w-auto md:order-4">
+            <p className={styles.liNavBar}>Bienvenido {session.user.name}</p>
           </div>
           <div
             className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
@@ -155,6 +173,60 @@ export const PublicNavBar = () => {
           </div>
         </div>
       </nav>
+      <div className={menuMobileState + " absolute right-0 w-1/2 bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800"}>
+        <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+          <li>
+            <Link href="/">
+              <a
+                className={
+                  router.asPath == "/" ? styles.actualLiNavBar : styles.liNavBar
+                }
+              >
+                Libros
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/profile">
+              <a
+                className={
+                  router.asPath == "/profile"
+                    ? styles.actualLiNavBar
+                    : styles.liNavBar
+                }
+              >
+                Perfil
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/reviews">
+              <a
+                className={
+                  router.asPath == "/reviews"
+                    ? styles.actualLiNavBar
+                    : styles.liNavBar
+                }
+              >
+                Tus reseñas
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/peticiones">
+              <a
+                className={
+                  router.asPath == "/petilciones"
+                    ? styles.actualLiNavBar
+                    : styles.liNavBar
+                }
+              >
+                Tus peticiones
+              </a>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </>
   );
 };

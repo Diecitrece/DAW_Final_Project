@@ -1,7 +1,6 @@
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { PublicNavBar } from "../components/publicNavBar";
 
 const styles = {
   loginButton:
@@ -18,7 +17,6 @@ export default function PublicIndex() {
   if (session) {
     return (
       <>
-        <PublicNavBar />
         Pagina Principal
         <button className={styles.loginButton} onClick={() => signOut()}>
           Logout

@@ -161,6 +161,15 @@ export const PublicNavBar = () => {
           </div>
           <div className="hidden justify-between items-center w-full md:flex md:w-auto md:order-5">
             <a
+              href="/admin"
+              className={
+                (session.user.role == "Admin" ? "" : "hidden ") +
+                styles.closeSession
+              }
+            >
+              <i class="fa fa-lock"></i>
+            </a>
+            <a
               href="#"
               className={styles.closeSession}
               onClick={() => signOut()}

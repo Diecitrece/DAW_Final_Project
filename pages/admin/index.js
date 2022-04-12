@@ -1,6 +1,6 @@
-import { useSession, getSession, signIn, signOut } from "next-auth/react";
+import { useSession, getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { AdminMenuBar } from "../../components/adminComponents/adminMenuBar";
 
 const styles = {
   loginButton:
@@ -18,15 +18,22 @@ export default function AdminIndex() {
     if (session.user.role == "Admin") {
       return (
         <>
-          Admin
-          <button className={styles.loginButton} onClick={() => signOut()}>
-            Logout
-          </button>
-          <a href="/public/indexTest">Public</a>
+          <div className="flex flex-row h-full">
+            <AdminMenuBar />
+            <div>
+              Admin
+              <br />
+              <button className={styles.loginButton} onClick={() => signOut()}>
+                Logout
+              </button>
+              <br />
+              <a href="/">Public</a>
+            </div>
+          </div>
         </>
       );
     }
-    router.push("/public/indexTest");
+    router.push("/index");
     return null;
   }
   router.push("/login");

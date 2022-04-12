@@ -1,6 +1,7 @@
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { PublicNavBar } from "../components/publicNavBar";
 
 export default function Profile() {
   const { data: session } = useSession();
@@ -36,18 +37,22 @@ export default function Profile() {
     }
 
     return (
-      <div className="showBox">
+      <>
+        <PublicNavBar />
         <div>
-          <img src={userData.image} />
+          <div>
+            <img src={userData.image} />
+          </div>
+          <div>
+            <p>{userData.name}</p>
+            <p>{userData.email}</p>
+            <p className={userData.banned ? "" : "hidden"}>
+              En periodo de sancion
+            </p>
+            <p>Reseñas: 'número'</p>
+          </div>
         </div>
-        <div>
-          <p>{userData.name}</p>
-          <p>{userData.email}</p>
-          <p className={userData.banned ? "" : "hidden"}>
-            En periodo de sancion
-          </p>
-        </div>
-      </div>
+      </>
     );
   }
   router.push("/login");

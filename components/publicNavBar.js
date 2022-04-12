@@ -52,7 +52,7 @@ export const PublicNavBar = () => {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
         rel="stylesheet"
       />
-      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800">
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-800">
         <div className="container flex flex-row m-auto justify-between">
           <Link href="/">
             <a className="flex items-center">
@@ -60,7 +60,7 @@ export const PublicNavBar = () => {
                 src="https://mestreacasa.gva.es/c/document_library/get_file?folderId=500009883339&name=DLFE-600502.png"
                 className="mr-3 h-6 sm:h-9"
               />
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center text-xl font-semibold whitespace-nowrap text-white">
                 Hermanos Amoros
               </span>
             </a>
@@ -84,7 +84,7 @@ export const PublicNavBar = () => {
               <input
                 type="text"
                 id="searchBook"
-                className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Buscar libro..."
                 autocomplete="false"
                 name="hidden"
@@ -98,7 +98,7 @@ export const PublicNavBar = () => {
               <ul
                 className={
                   (focusSuggestion ? "" : "hidden") +
-                  " absolute bg-white border-gray-200 dark:bg-gray-800 w-full mt-1"
+                  " absolute bg-white border-gray-200 bg-gray-800 w-full mt-1"
                 }
               >
                 {suggestions.map((suggestion, index) => {
@@ -123,7 +123,7 @@ export const PublicNavBar = () => {
             <button
               data-collapse-toggle="mobile-menu-3"
               type="button"
-              className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-400 hover:bg-gray-700 focus:ring-gray-600"
               aria-controls="mobile-menu-3"
               aria-expanded="false"
               onClick={() => {
@@ -244,7 +244,7 @@ export const PublicNavBar = () => {
       <div
         className={
           menuMobileState +
-          " absolute right-0 w-1/2 bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800"
+          " absolute right-0 w-1/2 bg-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-800"
         }
       >
         <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">

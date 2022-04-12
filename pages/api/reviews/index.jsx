@@ -13,8 +13,6 @@ export default async function handler(req, res) {
         const { idReview, idUser } = req.query;
 
         if (idReview) {
-          console.log("obtener una");
-
           const review = await Books.find(
             { "reviews.idReview": idReview },
             { reviews: { $elemMatch: { idReview: idReview } } }
@@ -22,21 +20,24 @@ export default async function handler(req, res) {
 
           res.status(200).json(review[0]);
         } else if (idUser) {
-          console.log("obtener todas");
+          let revUser = [];
 
           const reviews = await Books.find(
             { "reviews.idUser": idUser },
-            { reviews: { $elemMatch: { idUser: idUser } } }
+            { reviews: 1 }
           );
 
-          res.status(200).json(reviews);
-        } else {
-          console.log("obtener todas");
-          const books = await Books.find({});
+          reviews.forEach((review) => {
+            review.reviews.forEach((rev) => {
+              if (rev.idUser === idUser) {
+                console.log(review._id);
+                rev.idBook = review._id;
+                revUser.push(rev);
+              }
+            });
+          });
 
-          const reviews = await Books.find({}, { reviews: 1 });
-
-          res.status(200).json(reviews);
+          res.status(200).json(revUser);
         }
       } catch (error) {
         res.status(400).json({ success: false });
@@ -52,14 +53,10 @@ export default async function handler(req, res) {
         });
 
         if (review.idReview == "") {
-            
           //create an objectid with mongoose
           const idUnique = mongoose.Types.ObjectId();
           review.idReview = idUnique;
-
         }
-
-
 
         if (reviewExist.length === 0) {
           const book = await Books.findOneAndUpdate(

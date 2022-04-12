@@ -15,14 +15,6 @@ export default function Profile() {
   }
   if (session) {
     useEffect(() => {
-      if (userData) {
-        if (userData.banned) {
-          setBannedLine(<p>En periodo de sancion</p>);
-        }
-      }
-    }, [userData]);
-
-    useEffect(() => {
       let queryID = router.query.id ? router.query.id : session.user.id;
       let url = "api/users?id=" + queryID;
       const response = fetch(url, {
@@ -51,7 +43,9 @@ export default function Profile() {
         <div>
           <p>{userData.name}</p>
           <p>{userData.email}</p>
-          {bannedLine}
+          <p className={userData.banned ? "" : "hidden"}>
+            En periodo de sancion
+          </p>
         </div>
       </div>
     );

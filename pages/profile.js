@@ -3,47 +3,67 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
-    const { data: session } = useSession();
-    const router = useRouter();
+  const { data: session } = useSession();
 
-    const styles = 
-    {
-
-    }
-    if (typeof window === "undefined") {
-        return null;
-    }
-    if (session) {
-        useEffect(async () =>
-        {
-            let url = './api/user';
-            const response = await fetch(url, 
-                {
-                    method: "GET",
-                });
-            console.log(response);
-        }, [])
-        return(
-            <div class='showBox'>
-                <div>
-                    <img></img>
-                </div>
-                <div>
-                    <p>name</p>
-                    <p>email</p>
-                    <p>Baneado (variable)</p>
-                </div>
-            </div>
-        )
-    }
-    router.push("/login");
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const [bannedLine, setBannedLine] = useState("");
+  const router = useRouter();
+  const styles = {};
+  if (typeof window === "undefined") {
     return null;
+  }
+  if (session) {
+    useEffect(() => {
+      if (userData) {
+        if (userData.banned) {
+          setBannedLine(<p>En periodo de sancion</p>);
+        }
+      }
+    }, [userData]);
+
+    useEffect(() => {
+      let queryID = router.query.id ? router.query.id : session.user.id;
+      let url = "api/users?id=" + queryID;
+      const response = fetch(url, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserData(data);
+          setLoading(false);
+        });
+    }, []);
+
+    if (isLoading) {
+      return (
+        <div>
+          <p>This shit is loading</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="showBox">
+        <div>
+          <img src={userData.image} />
+        </div>
+        <div>
+          <p>{userData.name}</p>
+          <p>{userData.email}</p>
+          {bannedLine}
+        </div>
+      </div>
+    );
+  }
+  router.push("/login");
+  return null;
 }
 
 export async function getServerSideProps(context) {
-    return {
-        props: {
-        session: await getSession(context),
-        },
-    };
+  return {
+    props: {
+      session: await getSession(context),
+    },
+  };
 }

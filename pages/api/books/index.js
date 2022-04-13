@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         if (req.query.name) {
           res
             .status(200)
-            .json(await Books.find({ name: { $regex: req.query.name } }));
+            .json(await Books.find({ name: { $regex: req.query.name, $options: "i" } }));
         }
         res.status(200).json(await Books.find({}));
       } catch (error) {

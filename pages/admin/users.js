@@ -1,12 +1,74 @@
 import { useSession, getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { AdminMenuBar } from "../../components/adminComponents/adminMenuBar";
+import DataTable from "react-data-table-component";
+import { useState, useEffect } from "react";
 
 const styles = {};
 
 export default function AdminIndex() {
   const { data: session } = useSession();
   const router = useRouter();
+
+  const [dataTable, setDataTable] = useState([]);
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  async function getUsers() {
+    const res = await fetch("/api/users", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    return await res.text();
+  }
+
+  const loadUsers = () => {
+    getUsers()
+      .then((response) => JSON.parse(response))
+      .then((data) => {
+        setDataTable(data);
+      });
+  };
+
+  const columns = [
+    {
+      name: "Usuario",
+      selector: (row) => row.name,
+      width: "220px",
+      sortable: true,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Rol",
+      selector: (row) => row.role,
+      width: "110px",
+    },
+    {
+      name: "Baneado",
+      center: true,
+      cell: (row) => (
+        <a href="#">
+          {row.banned ? (
+            <span className="text-lg font-black text-red-700">X</span>
+          ) : (
+            <i class="fa fa-check text-green-600"></i>
+          )}
+        </a>
+      ),
+      width: "100px",
+    },
+  ];
+
+  const paginationComponentOptions = {
+    noRowsPerPage: true,
+    rangeSeparatorText: "de",
+  };
 
   if (typeof window === "undefined") {
     return null;
@@ -15,47 +77,19 @@ export default function AdminIndex() {
     if (session.user.role == "Admin") {
       return (
         <>
-          <div className="flex flex-row h-full">
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+            rel="stylesheet"
+          />
+          <div className="flex flex-row w-full h-full">
             <AdminMenuBar />
-            <div
-              id="recipients"
-              class="p-8 mt-6 lg:mt-0 rounded shadow bg-white"
-            >
-              <table
-                id="example"
-                class="stripe hover"
-                style="width:100%; padding-top: 1em;  padding-bottom: 1em;"
-              >
-                <thead>
-                  <tr>
-                    <th data-priority="1">Name</th>
-                    <th data-priority="2">Position</th>
-                    <th data-priority="3">Office</th>
-                    <th data-priority="4">Age</th>
-                    <th data-priority="5">Start date</th>
-                    <th data-priority="6">Salary</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
-
-                  <tr>
-                    <td>Donna Snider</td>
-                    <td>Customer Support</td>
-                    <td>New York</td>
-                    <td>27</td>
-                    <td>2011/01/25</td>
-                    <td>$112,000</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="m-auto w-1/2">
+              <DataTable
+                columns={columns}
+                data={dataTable}
+                pagination
+                paginationComponentOptions={paginationComponentOptions}
+              />
             </div>
           </div>
         </>

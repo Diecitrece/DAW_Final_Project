@@ -2,7 +2,8 @@ import { useSession, getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { AdminMenuBar } from "../../components/adminComponents/adminMenuBar";
 import DataTable from "react-data-table-component";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { data } from "autoprefixer";
 
 const styles = {};
 
@@ -11,13 +12,16 @@ export default function AdminIndex() {
   const router = useRouter();
 
   const [dataTable, setDataTable] = useState([]);
+  const [filter, setFilter] = useState("");
+
+  useEffect(() => {}, [filter]);
 
   useEffect(() => {
     loadUsers();
-  }, []);
+  }, [filter]);
 
   async function getUsers() {
-    const res = await fetch("/api/users", {
+    const res = await fetch("/api/users?name=" + filter, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -84,6 +88,11 @@ export default function AdminIndex() {
           <div className="flex flex-row w-full h-full">
             <AdminMenuBar />
             <div className="m-auto w-1/2">
+              <input
+                placeholder="Buscar..."
+                className="m-auto form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                onChange={(e) => setFilter(e.target.value)}
+              />
               <DataTable
                 columns={columns}
                 data={dataTable}

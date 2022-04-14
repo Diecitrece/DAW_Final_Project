@@ -81,9 +81,8 @@ export default function AdminIndex() {
                   <input
                     placeholder={router.query.name}
                     onChange={(e) => setName(e.target.value)}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
                     id="name"
-                    type="text"
                   />
                 </div>
                 <div className="mb-6">
@@ -96,7 +95,7 @@ export default function AdminIndex() {
                   <input
                     placeholder={router.query.ISBN}
                     onChange={(e) => setISBN(e.target.value)}
-                    className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="ISBN"
                     type="text"
                   />

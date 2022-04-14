@@ -33,7 +33,6 @@ export default function AdminIndex() {
         id: id,
       }),
     });
-    console.log("x");
     loadUsers();
   };
 

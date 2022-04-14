@@ -33,7 +33,6 @@ export default function AdminIndex() {
         _id: id,
       }),
     });
-    console.log(res);
     loadBooks();
   };
 
@@ -59,18 +58,36 @@ export default function AdminIndex() {
     },
     {
       name: "Reseñas",
-      cell: (row) => row.reviews.length,
+      cell: (row) => (
+        <>
+          <div className="flex space-x-4">
+            <span>{row.reviews.length}</span>
+            <a href={"/admin/books/reviews?id=" + row._id}>
+              <i class="fa fa-eye text-base"></i>
+            </a>
+          </div>
+        </>
+      ),
     },
     {
       name: "Acciones",
       cell: (row) => (
         <>
           <div className="flex space-x-4">
-            <a href={"/admin/books/edit?id=" + row._id}>
-              <i class="fa fa-pen"></i>
+            <a
+              href={
+                "/admin/books/edit?id=" +
+                row._id +
+                "&name=" +
+                row.name +
+                "&ISBN=" +
+                row.ISBN
+              }
+            >
+              <i class="fa fa-pen text-green-600"></i>
             </a>
             <a href="#" onClick={() => deleteBook(row._id)}>
-              <i class="fa fa-trash"></i>
+              <i class="fa fa-trash text-red-600"></i>
             </a>
           </div>
         </>

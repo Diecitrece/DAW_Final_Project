@@ -14,19 +14,28 @@ export default function AdminIndex() {
   const [dataTable, setDataTable] = useState([]);
   const [filter, setFilter] = useState("");
 
-  useEffect(() => {}, [filter]);
-
   useEffect(() => {
     loadUsers();
   }, [filter]);
 
-  async function getUsers() {
-    const res = await fetch("/api/users?name=" + filter, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+  const getUsers = async () => {
+    const res = await fetch("/api/users?name=" + filter);
     return await res.text();
-  }
+  };
+
+  const toggleBan = async (id) => {
+    await fetch("/api/users/toggleBan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    console.log("x");
+    loadUsers();
+  };
 
   const loadUsers = () => {
     getUsers()
@@ -57,7 +66,7 @@ export default function AdminIndex() {
       name: "Baneado",
       center: true,
       cell: (row) => (
-        <a href="#">
+        <a href="#" onClick={() => toggleBan(row._id)}>
           {row.banned ? (
             <span className="text-lg font-black text-red-700">X</span>
           ) : (

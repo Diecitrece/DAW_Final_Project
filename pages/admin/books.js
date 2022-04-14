@@ -15,29 +15,29 @@ export default function AdminIndex() {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    loadUsers();
+    loadBooks();
   }, [filter]);
 
-  const getUsers = async () => {
-    const res = await fetch("/api/users?name=" + filter);
+  const getBooks = async () => {
+    const res = await fetch("/api/books?name=" + filter);
     return await res.text();
   };
 
-  const toggleBan = async (id) => {
-    await fetch("/api/users/toggleBan", {
-      method: "POST",
+  const deleteBook = async (id) => {
+    const res = await fetch("/api/books", {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: id,
+        _id: id,
       }),
     });
-    loadUsers();
+    loadBooks();
   };
 
-  const loadUsers = () => {
-    getUsers()
+  const loadBooks = () => {
+    getBooks()
       .then((response) => JSON.parse(response))
       .then((data) => {
         setDataTable(data);
@@ -46,34 +46,52 @@ export default function AdminIndex() {
 
   const columns = [
     {
-      name: "Usuario",
+      name: "Nombre",
       selector: (row) => row.name,
-      width: "220px",
+      width: "350px",
       sortable: true,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: "ISBN",
+      selector: (row) => row.ISBN,
       sortable: true,
     },
     {
-      name: "Rol",
-      selector: (row) => row.role,
-      width: "110px",
-    },
-    {
-      name: "Baneado",
-      center: true,
+      name: "Reseñas",
       cell: (row) => (
-        <a href="#" onClick={() => toggleBan(row._id)}>
-          {row.banned ? (
-            <i class="fa fa-ban text-red-600 text-lg"></i>
-          ) : (
-            <i class="fa fa-check text-green-600 text-lg"></i>
-          )}
-        </a>
+        <>
+          <div className="flex space-x-4">
+            <span>{row.reviews.length}</span>
+            <a href={"/admin/books/reviews?id=" + row._id}>
+              <i class="fa fa-eye text-base"></i>
+            </a>
+          </div>
+        </>
       ),
-      width: "100px",
+    },
+    {
+      name: "Acciones",
+      cell: (row) => (
+        <>
+          <div className="flex space-x-4">
+            <a
+              href={
+                "/admin/books/edit?id=" +
+                row._id +
+                "&name=" +
+                row.name +
+                "&ISBN=" +
+                row.ISBN
+              }
+            >
+              <i class="fa fa-pen text-green-600"></i>
+            </a>
+            <a href="#" onClick={() => deleteBook(row._id)}>
+              <i class="fa fa-trash text-red-600"></i>
+            </a>
+          </div>
+        </>
+      ),
     },
   ];
 

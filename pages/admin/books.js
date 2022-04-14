@@ -66,7 +66,7 @@ export default function AdminIndex() {
       cell: (row) => (
         <>
           <div className="flex space-x-4">
-            <a href="#">
+            <a href={"/admin/books/edit?id=" + row._id}>
               <i class="fa fa-pen"></i>
             </a>
             <a href="#" onClick={() => deleteBook(row._id)}>

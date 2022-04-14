@@ -68,9 +68,9 @@ export default function AdminIndex() {
       cell: (row) => (
         <a href="#" onClick={() => toggleBan(row._id)}>
           {row.banned ? (
-            <span className="text-lg font-black text-red-700">X</span>
+            <i class="fa fa-ban text-red-600 text-lg"></i>
           ) : (
-            <i class="fa fa-check text-green-600"></i>
+            <i class="fa fa-check text-green-600 text-lg"></i>
           )}
         </a>
       ),

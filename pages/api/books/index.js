@@ -1,46 +1,55 @@
-import dbConnect from '../../../lib/dbConnect'
-import Books from '../../../models/book'
+import dbConnect from "../../../lib/dbConnect";
+import Books from "../../../models/book";
 
-export default async function handler (req, res) {
-  const { method } = req
+export default async function handler(req, res) {
+  const { method } = req;
 
-  await dbConnect()
+  await dbConnect();
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
-        if (req.query.id) { res.status(200).json(await Books.findById(req.query.id))}
-        console.log(req.query.id)
-        res.status(200).json(await Books.find({}))
+        if (req.query.id) {
+          res.status(200).json(await Books.findById(req.query.id));
+        }
+        if (req.query.name) {
+          res
+            .status(200)
+            .json(
+              await Books.find({
+                name: { $regex: req.query.name, $options: "i" },
+              })
+            );
+        }
+        res.status(200).json(await Books.find({}));
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
-    case 'POST':
+      break;
+    case "POST":
       try {
         const book = new Books(req.body);
-        res.status(200).json(await book.save())
+        res.status(200).json(await book.save());
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
-      case 'PUT':
+      break;
+    case "PUT":
       try {
-        const book = new Books(req.body);
-        await Books.findOneAndUpdate({_id: req.body._id}, book);
-        res.status(200).json(await Books.findOne({_id: req.body._id}))
+        await Books.findByIdAndUpdate(req.body._id, req.body);
+        res.status(200).json(await Books.findOne({ _id: req.body._id }));
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
-      case 'DELETE':
+      break;
+    case "DELETE":
       try {
-        res.status(200).json(await Books.deleteOne({_id: req.body._id}))
+        res.status(200).json(await Books.deleteOne({ _id: req.body._id }));
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
+      break;
     default:
-      break
+      break;
   }
 }

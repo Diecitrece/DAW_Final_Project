@@ -8,7 +8,6 @@ export default function Profile() {
 
   const [userData, setUserData] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const [bannedLine, setBannedLine] = useState("");
   const router = useRouter();
   const styles = {};
   if (typeof window === "undefined") {
@@ -47,7 +46,7 @@ export default function Profile() {
             <p>{userData.name}</p>
             <p>{userData.email}</p>
             <p className={userData.banned ? "" : "hidden"}>
-              En periodo de sancion
+              En periodo de sanción
             </p>
             <p>Reseñas: 'número'</p>
           </div>

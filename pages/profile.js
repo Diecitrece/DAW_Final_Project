@@ -8,18 +8,13 @@ export default function Profile() {
 
   const [userData, setUserData] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const [numReviews, setNumReviews] = useState(0);
-
+  const [bannedLine, setBannedLine] = useState("");
   const router = useRouter();
   const styles = {};
   if (typeof window === "undefined") {
     return null;
   }
   if (session) {
-    useEffect(() => {
-      let url = "fafa";
-    }, [userData]);
-
     useEffect(() => {
       let queryID = router.query.id ? router.query.id : session.user.id;
       let url = "api/users?id=" + queryID;
@@ -52,9 +47,9 @@ export default function Profile() {
             <p>{userData.name}</p>
             <p>{userData.email}</p>
             <p className={userData.banned ? "" : "hidden"}>
-              En periodo de sanción
+              En periodo de sancion
             </p>
-            <p>Reseñas: {numReviews}</p>
+            <p>Reseñas: 'número'</p>
           </div>
         </div>
       </>

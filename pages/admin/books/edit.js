@@ -34,8 +34,8 @@ export default function AdminIndex() {
       },
       body: JSON.stringify({
         _id: router.query.id,
-        name: name,
-        ISBN: ISBN,
+        name: name == "" ? router.query.name : name,
+        ISBN: ISBN == "" ? router.query.ISBN : ISBN,
       }),
     });
   };

@@ -17,8 +17,9 @@ export default function Profile() {
   }
   if (session) {
     useEffect(() => {
-      let url = ""
+      let url = "fafa";
     }, [userData]);
+
     useEffect(() => {
       let queryID = router.query.id ? router.query.id : session.user.id;
       let url = "api/users?id=" + queryID;

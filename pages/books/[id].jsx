@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { PublicNavBar } from "../../components/publicNavBar";
 
 export default function LoadBook() {
   const { data: session } = useSession();
@@ -41,6 +42,7 @@ export default function LoadBook() {
     if (session.user.role == "Admin") {
       return (
         <>
+          <PublicNavBar />
           <div className="container mx-auto">
             <div className="flex flex-wrap p-10 ">
               <div className="w-full md:w-1/3 p-4 ">

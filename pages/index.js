@@ -9,13 +9,10 @@ const styles = {
     "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900",
 };
 
-
-
 export default function PublicIndex() {
   const { data: session } = useSession();
   const [books, setBooks] = useState([]);
   const router = useRouter();
-
 
   useEffect(() => {
     fetch("http://localhost:3000/api/books")
@@ -29,36 +26,29 @@ export default function PublicIndex() {
   if (session) {
     return (
       <>
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.1/tailwind.min.css"
-          rel="stylesheet"
-        />
         <PublicNavBar />
-
-
 
         <div className="grid grid-cols-3 p-1">
           {books.map((book, index) => {
-            
             return (
               <>
-                <Link href={"books/"+book._id}>
+                <Link href={"books/" + book._id}>
                   <a className="mt-12 bg-teal-600 mx-auto px-10 py-8">
-                  <div> 
-
-                    <p className="text-center">{ book.name }</p> 
-                    <div className="w-32 mt-4 mx-auto"><img src="https://pbs.twimg.com/media/FJApRPRWUAgOa9G.png" alt="" /></div>
-
-                  </div>
+                    <div>
+                      <p className="text-center">{book.name}</p>
+                      <div className="w-32 mt-4 mx-auto">
+                        <img
+                          src="https://pbs.twimg.com/media/FJApRPRWUAgOa9G.png"
+                          alt=""
+                        />
+                      </div>
+                    </div>
                   </a>
                 </Link>
-
               </>
             );
           })}
         </div>
-        
-
       </>
     );
   }

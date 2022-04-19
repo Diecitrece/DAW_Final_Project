@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         if (req.query.name) {
           res
             .status(200)
-            .json(await Books.find({ name: { $regex: req.query.name } }));
+            .json(await Books.find({ name: { $regex: req.query.name, $options: "i" } }));
         }
         res.status(200).json(await Books.find({}));
       } catch (error) {
@@ -32,8 +32,7 @@ export default async function handler(req, res) {
       break;
     case "PUT":
       try {
-        const book = new Books(req.body);
-        await Books.findOneAndUpdate({ _id: req.body._id }, book);
+        await Books.findByIdAndUpdate( req.body._id, req.body);
         res.status(200).json(await Books.findOne({ _id: req.body._id }));
       } catch (error) {
         res.status(400).json({ success: false });

@@ -30,7 +30,11 @@ export default async function handler(req, res) {
     case "POST":
       try {
         const book = new Books(req.body);
-        res.status(200).json(await book.save());
+        const haveBook = await Books.find({ ISBN: { $regex: book.ISBN } })
+        if(haveBook == "") {
+          res.status(200).json(await book.save());
+        }
+        res.status(400).json({ success: false, message: "ISBN already exists" });
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -55,3 +59,4 @@ export default async function handler(req, res) {
       break;
   }
 }
+module.exports = handler;

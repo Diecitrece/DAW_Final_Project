@@ -38,19 +38,11 @@ export default async function handler (req, res) {
         }
         break
     case 'DELETE':
-      try{
-        if (req.body._id) {
-          const deleted = await Request.findOneAndDelete({_id: req.body._id});
-          if (deleted) {
-            res.status(200).json({message: deleted})
-          }
-            res.status(400).json({ success: false })
-
-        }
-          res.status(404).json({ success: false })
-        }catch(err){
-          res.status(500).json({message: err.message})
-        }
+      try {
+        res.status(200).json(await Request.deleteOne({_id: req.body._id}))
+      } catch (error) {
+        res.status(400).json({ success: false })
+      }
       break
     default:
       break

@@ -1,7 +1,6 @@
 const axios = require("axios");
 describe("API Books", () => {
     it("GET in API Requests and return status code 200", async () => {
-        debugger
         const response = await axios.get("http://localhost:3000/api/requests/");
         expect(response.status).toBe(200);
     });
@@ -21,8 +20,9 @@ describe("API Books", () => {
         const response = await axios.put("http://localhost:3000/api/requests/", {_id: "62650f37a9f6bdc755282f2b" ,name: "La guerra de las galaxias 2"});
         expect(response.status).toBe(200);
     });
-    it.skip("DELETE pass id request and return status code 200", async () => {
-        const response = await axios.post("http://localhost:3000/api/requests/", {_method: "DELETE", _id: "62651200f012256186ce4e00"});
+    it("DELETE pass id request and return status code 200", async () => {
+        debugger
+        const response = await axios.delete("http://localhost:3000/api/requests/", {_method: "DELETE", _id: "62651200f012256186ce4e00"});
         expect(response.status).toBe(200);
     });
 });

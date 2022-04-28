@@ -1,20 +1,36 @@
-import { useSession, getSession, signIn, signOut } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { PublicNavBar } from "../components/publicNavBar";
+import "@fortawesome/fontawesome-free/css/all.css";
+import Image from "next/image";
 
 export default function Profile() {
   const { data: session } = useSession();
 
   const [userData, setUserData] = useState(null);
+  const [reviewNum, setReviewNum] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const [bannedLine, setBannedLine] = useState("");
+
   const router = useRouter();
-  const styles = {};
+
   if (typeof window === "undefined") {
     return null;
   }
   if (session) {
+    useEffect(() => {
+      if (userData) {
+        let queryID = router.query.id ? router.query.id : session.user.id;
+        let url = "api/reviews?idUser=" + queryID;
+        const response = fetch(url, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setReviewNum(data.length);
+          });
+      }
+    }, [userData]);
     useEffect(() => {
       let queryID = router.query.id ? router.query.id : session.user.id;
       let url = "api/users?id=" + queryID;
@@ -28,10 +44,10 @@ export default function Profile() {
         });
     }, []);
 
-    if (isLoading) {
+    if (!isLoading) {
       return (
-        <div>
-          <p>This shit is loading</p>
+        <div className="loading">
+          <i className="fas fa-spinner" id="spinner"></i>
         </div>
       );
     }
@@ -39,17 +55,25 @@ export default function Profile() {
     return (
       <>
         <PublicNavBar />
-        <div>
-          <div>
-            <img src={userData.image} />
+        <div className="flex w-full h-screen p-4">
+          <div className="w-60 h-min bg-black mx-4 border-2 border-black">
+            <Image
+              src={userData.image}
+              width="100%"
+              height="100%"
+              layout="responsive"
+              objectFit="contain"
+            />
           </div>
           <div>
             <p>{userData.name}</p>
-            <p>{userData.email}</p>
+            <p>Correo: {userData.email}</p>
             <p className={userData.banned ? "" : "hidden"}>
-              En periodo de sancion
+              <span className="font-bold text-red-500">
+                En periodo de sancion
+              </span>
             </p>
-            <p>Reseñas: 'número'</p>
+            <p>Reseñas: {reviewNum}</p>
           </div>
         </div>
       </>

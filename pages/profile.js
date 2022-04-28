@@ -20,9 +20,8 @@ export default function Profile() {
   if (session) {
     useEffect(() => {
       if (userData) {
-        let queryID = router.query.id ? router.query.id : session.user.id;
-        let url = "api/reviews?idUser=" + queryID;
-        const response = fetch(url, {
+        let url = "api/reviews?idUser=" + userData._id;
+        fetch(url, {
           method: "GET",
         })
           .then((response) => response.json())
@@ -34,7 +33,7 @@ export default function Profile() {
     useEffect(() => {
       let queryID = router.query.id ? router.query.id : session.user.id;
       let url = "api/users?id=" + queryID;
-      const response = fetch(url, {
+      fetch(url, {
         method: "GET",
       })
         .then((response) => response.json())
@@ -44,14 +43,13 @@ export default function Profile() {
         });
     }, []);
 
-    if (!isLoading) {
+    if (isLoading) {
       return (
         <div className="loading">
           <i className="fas fa-spinner" id="spinner"></i>
         </div>
       );
     }
-
     return (
       <>
         <PublicNavBar />

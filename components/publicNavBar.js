@@ -106,7 +106,7 @@ export const PublicNavBar = () => {
                     return (
                       <>
                         <a
-                          href={"/api/books?name=" + suggestion.name}
+                          href={"/books/" + suggestion._id}
                           className={styles.liSuggestMenu}
                         >
                           {suggestion.name}

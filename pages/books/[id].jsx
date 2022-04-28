@@ -39,7 +39,7 @@ export default function LoadBook() {
     return null;
   }
   if (session) {
-    if (session.user.role == "Admin") {
+    if (session.user.role == "Client" || session.user.role == "Admin") {
       return (
         <>
           <PublicNavBar />
@@ -129,7 +129,7 @@ export default function LoadBook() {
         </>
       );
     }
-    router.push("/index");
+    router.push("/");
     return null;
   }
   router.push("/login");

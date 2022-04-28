@@ -14,9 +14,6 @@ export default function Profile() {
 
   const router = useRouter();
 
-  if (typeof window === "undefined") {
-    return null;
-  }
   if (session) {
     useEffect(() => {
       if (userData) {
@@ -31,6 +28,9 @@ export default function Profile() {
       }
     }, [userData]);
     useEffect(() => {
+      if (typeof window === "undefined") {
+        return null;
+      }
       let queryID = router.query.id ? router.query.id : session.user.id;
       let url = "api/users?id=" + queryID;
       fetch(url, {
@@ -54,13 +54,14 @@ export default function Profile() {
       <>
         <PublicNavBar />
         <div className="flex w-full h-screen p-4">
-          <div className="w-60 h-min bg-black mx-4 border-2 border-black">
+          <div className="w-40 h-min bg-black mx-4 border-2 border-black">
             <Image
               src={userData.image}
               width="100%"
               height="100%"
               layout="responsive"
               objectFit="contain"
+              priority="low"
             />
           </div>
           <div>

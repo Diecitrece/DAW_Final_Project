@@ -39,7 +39,7 @@ export default function LoadBook() {
     return null;
   }
   if (session) {
-    if (session.user.role == "Client") {
+    if (session.user.role == "Client" || session.user.role == "Admin") {
       return (
         <>
           <PublicNavBar />

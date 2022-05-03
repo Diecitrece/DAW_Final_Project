@@ -1,18 +1,17 @@
-import dbConnect from '../../../lib/dbConnect'
-import Request from '../../../models/request'
+import dbConnect from "../../../lib/dbConnect";
+import Request from "../../../models/request";
 
+export default async function handler(req, res) {
+  const { method } = req;
 
-export default async function handler (req, res) {
-  const { method } = req
-
-  await dbConnect()
+  await dbConnect();
 
   switch (method) {
-    case 'GET':
-      if (req.query.id) { 
-        res.status(200).json(await Request.findById(req.query.id))
-      }else{
-        res.status(200).json(await Request.find({}))
+    case "GET":
+      if (req.query.id) {
+        res.status(200).json(await Request.findById(req.query.id));
+      } else {
+        res.status(200).json(await Request.find({}));
       }
     case 'POST':
      try{
@@ -39,12 +38,12 @@ export default async function handler (req, res) {
         break
     case 'DELETE':
       try {
-        res.status(200).json(await Request.deleteOne({_id: req.body._id}))
+        res.status(200).json(await Request.deleteOne({ _id: req.body._id }));
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
+      break;
     default:
-      break
+      break;
   }
 }

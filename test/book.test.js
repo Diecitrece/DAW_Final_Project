@@ -1,4 +1,9 @@
 const axios = require("axios");
+const newBook ={
+    name : "Test Book",
+    ISBN : Math.floor(Math.random() * (9999999999999 - 1000000000000)) + 1000000000000,
+    reviews: []
+}
 describe("API Books", () => {
     it("GET in API Book and return status code 200", async () => {
         const response = await axios.get("http://localhost:3000/api/books/");
@@ -21,7 +26,7 @@ describe("API Books", () => {
         expect(response.data[0].ISBN).toBe("9788408061052");
     });
     it("POST pass book and return status code 200", async () => {
-        const response = await axios.post("http://localhost:3000/api/books/", {name: "El señor de los anillos", ISBN: "9788845292612", reviews: []});
+        const response = await axios.post("http://localhost:3000/api/books/", newBook);
         expect(response.status).toBe(200);
     });
     it("PUT pass book and return status code 200", async () => {

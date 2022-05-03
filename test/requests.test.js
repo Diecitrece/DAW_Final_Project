@@ -21,7 +21,6 @@ describe("API Books", () => {
         expect(response.status).toBe(200);
     });
     it("DELETE pass id request and return status code 200", async () => {
-        debugger
         const response = await axios.delete("http://localhost:3000/api/requests/", {_method: "DELETE", _id: "62651200f012256186ce4e00"});
         expect(response.status).toBe(200);
     });

@@ -18,7 +18,7 @@ export default function PublicIndex() {
     if (session) {
         return (
             <>
-                <PublicNavBar />
+    <PublicNavBar />
                 Pagina Principal
                 <button
                     className={styles.loginButton}

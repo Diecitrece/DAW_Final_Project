@@ -15,19 +15,25 @@ export default async function handler(req, res) {
       }
     case "POST":
       try {
-        const request = new Request(req.body);
-        res.status(200).json(await request.save());
-      } catch (error) {
+        if (req.body.name) {
+          const request = new Request(req.body);
+          res.status(200).json(await request.save());
+        }
         res.status(400).json({ success: false });
+      } catch (err) {
+        res.status(500).json({ message: err.message });
       }
       break;
     case "PUT":
       try {
-        const request = new Request(req.body);
-        await Request.findOneAndUpdate({ _id: req.body._id }, request);
-        res.status(200).json(await Request.findOne({ _id: req.body._id }));
-      } catch (error) {
+        if (req.body._id) {
+          const request = new Request(req.body);
+          await Request.findOneAndUpdate({ _id: req.body._id }, request);
+          res.status(200).json(await Request.findOne({ _id: req.body._id }));
+        }
         res.status(400).json({ success: false });
+      } catch (err) {
+        res.status(500).json({ message: err.message });
       }
       break;
     case "DELETE":

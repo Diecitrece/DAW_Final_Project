@@ -2,6 +2,10 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import MyDialog from "./requestModal";
+import ReactDOM from "react-dom";
+import React from "react";
+import { Menu, Transition } from "@headlessui/react";
 
 const styles = {
   liNavBar:
@@ -20,6 +24,7 @@ const styles = {
 export const PublicNavBar = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const {showModal, setShowModal} = useState(false);
 
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -115,9 +120,8 @@ export const PublicNavBar = () => {
                     );
                   }
                 })}
-                <a href={"#"} className={styles.liSuggestMenuNewBook}>
-                  Solicitar libro...
-                </a>
+                <li><MyDialog></MyDialog></li>
+                
               </ul>
             </div>
             <button

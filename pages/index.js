@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { PublicNavBar } from "../components/publicNavBar";
 import Link from "next/link";
+import { ModalApp } from "../components/requestModal"
+import MyDialog from "../components/requestModal";
 
 const styles = {
   loginButton:
@@ -45,6 +47,7 @@ export default function PublicIndex() {
                     </div>
                   </a>
                 </Link>
+               <MyDialog></MyDialog>
               </>
             );
           })}

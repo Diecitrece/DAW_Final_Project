@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { PublicNavBar } from "../components/publicNavBar";
 import Link from "next/link";
-import { ModalApp } from "../components/requestModal"
+import { ModalApp } from "../components/requestModal.jsx"
 import MyDialog from "../components/requestModal";
 
 const styles = {
@@ -15,6 +15,7 @@ export default function PublicIndex() {
   const { data: session } = useSession();
   const [books, setBooks] = useState([]);
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     fetch("http://localhost:3000/api/books")
@@ -29,6 +30,22 @@ export default function PublicIndex() {
     return (
       <>
         <PublicNavBar />
+        <div className="text-center mt-8">
+          <button
+            onClick={() => 
+            setIsOpen(true)
+            }
+            className="rounded-md bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          >
+            Petición de libros
+          </button>
+          <MyDialog
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+          >
+
+          </MyDialog>
+        </div>
 
         <div className="grid grid-cols-3 p-1">
           {books.map((book, index) => {
@@ -47,7 +64,7 @@ export default function PublicIndex() {
                     </div>
                   </a>
                 </Link>
-               <MyDialog></MyDialog>
+                
               </>
             );
           })}

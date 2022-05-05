@@ -2,8 +2,7 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import MyDialog from "./requestModal";
-import ReactDOM from "react-dom";
+import MyDialog from "./requestModal.jsx";
 import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 
@@ -25,6 +24,7 @@ export const PublicNavBar = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const {showModal, setShowModal} = useState(false);
+  
 
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -43,6 +43,7 @@ export const PublicNavBar = () => {
   const [searchedBook, setSearchedBook] = useState("");
   const [suggestions, setSuggesitons] = useState([]);
   const [focusSuggestion, setFocusSuggestion] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   //useEffects
   useEffect(async () => {
@@ -120,7 +121,20 @@ export const PublicNavBar = () => {
                     );
                   }
                 })}
-                <li><MyDialog></MyDialog></li>
+                <button
+                  onClick={() => 
+                  setIsOpen(true)
+                  }
+                  className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                >
+                  Añadir libro
+                </button>
+                <MyDialog
+                  setIsOpen={setIsOpen}
+                  isOpen={isOpen}
+                >
+
+                </MyDialog>
                 
               </ul>
             </div>

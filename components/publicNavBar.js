@@ -123,7 +123,7 @@ export const PublicNavBar = () => {
                     );
                   }
                 })}
-                <button
+                {/* <button
                   onClick={() => 
                   setIsOpen(true)
                   }
@@ -136,7 +136,7 @@ export const PublicNavBar = () => {
                   isOpen={isOpen}
                 >
 
-                </MyDialog>
+                </MyDialog> */}
                 
               </ul>
             </div>

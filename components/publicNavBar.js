@@ -27,7 +27,9 @@ export const PublicNavBar = () => {
   
 
   const sleep = (milliseconds) => {
+    console.log("")
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
+    
   };
 
   //Fetchers

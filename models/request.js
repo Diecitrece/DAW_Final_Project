@@ -7,6 +7,9 @@ const requestSchema = new mongoose.Schema({
   author: {
     type: "String",
   },
+  description: {
+    type: "String",
+  },
   reviewd: {
     type: "Boolean",
   },

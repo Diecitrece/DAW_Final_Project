@@ -302,7 +302,7 @@ export default function LoadBook(props) {
         </>
       );
     }
-    router.push("/index");
+    router.push("/");
     return null;
   }
   router.push("/login");

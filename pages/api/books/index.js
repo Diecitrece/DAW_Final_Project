@@ -13,13 +13,16 @@ export default async function handler(req, res) {
           res.status(200).json(await Books.findById(req.query.id));
         }
         if (req.query.name) {
+          res.status(200).json(
+            await Books.find({
+              name: { $regex: req.query.name, $options: "i" },
+            })
+          );
+        }
+        if (req.query.ISBN) {
           res
             .status(200)
-            .json(
-              await Books.find({
-                name: { $regex: req.query.name, $options: "i" },
-              })
-            );
+            .json(await Books.find({ ISBN: { $regex: req.query.ISBN } }));
         }
         res.status(200).json(await Books.find({}));
       } catch (error) {
@@ -29,7 +32,13 @@ export default async function handler(req, res) {
     case "POST":
       try {
         const book = new Books(req.body);
-        res.status(200).json(await book.save());
+        const haveBook = await Books.find({ ISBN: { $regex: book.ISBN } });
+        if (haveBook == "") {
+          res.status(200).json(await book.save());
+        }
+        res
+          .status(400)
+          .json({ success: false, message: "ISBN already exists" });
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -53,3 +62,4 @@ export default async function handler(req, res) {
       break;
   }
 }
+module.exports = handler;

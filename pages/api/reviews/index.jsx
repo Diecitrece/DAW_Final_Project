@@ -30,7 +30,6 @@ export default async function handler(req, res) {
           reviews.forEach((review) => {
             review.reviews.forEach((rev) => {
               if (rev.idUser === idUser) {
-                console.log(review._id);
                 rev.idBook = review._id;
                 revUser.push(rev);
               }

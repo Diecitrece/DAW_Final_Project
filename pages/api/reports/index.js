@@ -12,49 +12,47 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const { idReview } = req.body;
-        logger.info("Request Get Reviews idReview: ", idReview);
+        logger.info("REQUEST GET Reviews idReview: ", idReview);
         const book = await Books.find({ idReview: idReview });
         let review = book[0].reviews.find((i) => {
           return i.idReview === idReview;
         });
-        logger.info("Response Get Reviews: ", review);
+        logger.info("REQUEST GET Reviews: ", review);
         return res.status(200).json(review.reports);
       } catch (error) {
-        logger.error("Error Get Reviews: ", error);
+        logger.error("ERROR GET Reviews: ", error);
         return res.status(400).json({ success: false });
       }
-      break;
     case "POST":
       try {
         const { idReview, report } = req.body;
-        logger.info("Request Post Reviews idReview: ", idReview);
+        logger.info("REQUEST POST Reviews idReview: ", idReview);
         const book = await Books.find({ idReview: idReview }).lean();
         let review = book[0].reviews.find((i) => {
           return i.idReview === idReview;
         });
         review.reports.push(report);
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
-        logger.info("Response Post Reviews: ", review);
+        logger.info("REQUEST POST Reviews: ", review);
         return res.status(200).json(review.reports);
       } catch (error) {
-        logger.error("Error Post Reviews: ", error);
+        logger.error("ERROR POST Reviews: ", error);
         return res.status(400).json({ error });
       }
-      break;
     case "DELETE":
       try {
         const { idReview } = req.body;
-        logger.info("Request Delete Reviews idReview: ", idReview);
+        logger.info("REQUEST DELETE Reviews idReview: ", idReview);
         const book = await Books.find({ idReview: idReview }).lean();
         let review = book[0].reviews.find((i) => {
           return i.idReview === idReview;
         });
         review.reports = [];
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
-        logger.info("Response Delete Reviews: ", review);
+        logger.info("REQUEST DELETE Reviews: ", review);
         return res.status(200).json(review.reports);
       } catch (error) {
-        logger.error("Error Delete Reviews: ", error);
+        logger.error("ERROR DELETE Reviews: ", error);
         return res.status(400).json({ error });
       }
     default:

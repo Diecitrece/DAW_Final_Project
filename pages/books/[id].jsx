@@ -48,7 +48,6 @@ export default function LoadBook(props) {
     });
   }
   */
-  
 
   const [form, setForm] = useState({
     idReview: "",
@@ -148,10 +147,6 @@ export default function LoadBook(props) {
                   /*show the reviews*/
 
                   book.reviews.map((review) => {
-                    
-                   
-                      
-
                     return (
                       <>
                         <div className="mb-4" key={review.id}>
@@ -168,7 +163,8 @@ export default function LoadBook(props) {
                                 <div className="">
                                   <div className="name">
                                     <p className="text-xl font-semibold mb-2">
-                                      {/*getName(review.idUser)*/}NOmbre de usuario
+                                      {/*getName(review.idUser)*/}NOmbre de
+                                      usuario
                                     </p>
                                   </div>
                                   <div className="flex">
@@ -300,6 +296,7 @@ export default function LoadBook(props) {
                   <p>No hay reseñas para este libro</p>
                 )}
               </div>
+              
             </div>
           </div>
         </>

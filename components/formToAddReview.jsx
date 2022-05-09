@@ -2,7 +2,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, getSession } from "next-auth/react";
 
-const FormModal = ({ idbook, setChange ,setOpen ,open, form ,setForm }) => {
+const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
   const cancelButtonRef = useRef(null);
 
   //const [open, setOpen] = useState(false);
@@ -188,7 +188,17 @@ const FormModal = ({ idbook, setChange ,setOpen ,open, form ,setForm }) => {
                    bg-red-500 text-base font-medium text-white
                     hover:bg-red-700 sm:mt-0
                       sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                          setOpen(false);
+                          setForm({
+                            idReview: "",
+                            idUser: session.user.id,
+                            pubDate: "2008-12-31 00:00:00",
+                            description: "",
+                            rating: "1",
+                            reports: [],
+                          });
+                        }}
                         ref={cancelButtonRef}
                       >
                         Cancelar

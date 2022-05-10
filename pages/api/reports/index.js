@@ -16,8 +16,10 @@ export default async function handler(req, res) {
           return i.idReview === idReview;
         });
         res.status(200).json(review.reports);
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
       break;
     case "POST":
@@ -30,8 +32,10 @@ export default async function handler(req, res) {
         review.reports.push(report);
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
         res.status(200).json(review.reports);
+        return;
       } catch (error) {
         res.status(400).json({ error });
+        return;
       }
       break;
     case "DELETE":
@@ -44,8 +48,10 @@ export default async function handler(req, res) {
         review.reports = [];
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
         res.status(200).json(review.reports);
+        return;
       } catch (error) {
         res.status(400).json({ error });
+        return;
       }
     default:
       break;

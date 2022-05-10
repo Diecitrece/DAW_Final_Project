@@ -49,19 +49,16 @@ export default async function handler(req, res) {
         const { body } = req;
         const { idBook, review } = body;
 
-        const reviewExist = await Books.find({
-          "reviews.idReview": review.idReview,
-        });
+        if (review.idReview === "") {
+          //add new review
 
-        if (review.idReview == "") {
           //create an objectid with mongoose
+
           const idUnique = mongoose.Types.ObjectId();
           review.idReview = idUnique;
-        }
 
-        if (reviewExist.length === 0) {
           const book = await Books.findOneAndUpdate(
-            { idBook },
+            { _id: idBook },
             { $push: { reviews: review } },
             { new: true }
           );
@@ -71,13 +68,18 @@ export default async function handler(req, res) {
           res.status(200).json(books);
           return;
         } else {
+          //update review
+
+          var OidReview = mongoose.Types.ObjectId(review.idReview);
+          review.idReview = OidReview;
+
           const book = await Books.findOneAndUpdate(
-            { idBook },
-            { $pull: { reviews: { idReview: review.idReview } } }
+            { "reviews.idReview": OidReview },
+            { $pull: { reviews: { idReview: OidReview } } }
           );
 
           const updateBook = await Books.findOneAndUpdate(
-            { idBook },
+            { _id: idBook },
             { $push: { reviews: review } },
             { new: true }
           );
@@ -96,9 +98,11 @@ export default async function handler(req, res) {
         const { body } = req;
         const { idReview } = body;
 
-        const del = await Books.updateOne(
-          { "reviews.idReview": idReview },
-          { $pull: { reviews: { idReview: idReview } } }
+        const OidReview = mongoose.Types.ObjectId(idReview);
+
+        const del = await Books.findOneAndUpdate(
+          { "reviews.idReview": OidReview },
+          { $pull: { reviews: { idReview: OidReview } } }
         );
 
         const books = await Books.find({});

@@ -10,39 +10,46 @@ export default async function handler(req, res) {
     case "GET":
       if (req.query.id) {
         res.status(200).json(await Request.findById(req.query.id));
+        return;
       } else {
         res.status(200).json(await Request.find({}));
+        return;
       }
     case "POST":
       try {
         if (req.body.name) {
           const request = new Request(req.body);
           res.status(200).json(await request.save());
+          return;
         }
         res.status(400).json({ success: false });
+        return;
       } catch (err) {
         res.status(500).json({ message: err.message });
+        return;
       }
-      break;
     case "PUT":
       try {
         if (req.body._id) {
           const request = new Request(req.body);
           await Request.findOneAndUpdate({ _id: req.body._id }, request);
           res.status(200).json(await Request.findOne({ _id: req.body._id }));
+          return;
         }
         res.status(400).json({ success: false });
+        return;
       } catch (err) {
         res.status(500).json({ message: err.message });
+        return;
       }
-      break;
     case "DELETE":
       try {
         res.status(200).json(await Request.deleteOne({ _id: req.body._id }));
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     default:
       break;
   }

@@ -11,6 +11,7 @@ export default async function handler(req, res) {
       try {
         if (req.query.id) {
           res.status(200).json(await Users.findById(req.query.id));
+          return;
         }
         if (req.query.name) {
           res.status(200).json(
@@ -18,13 +19,14 @@ export default async function handler(req, res) {
               name: { $regex: req.query.name, $options: "i" },
             })
           );
+          return;
         }
         res.status(200).json(await Users.find({}));
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
-
     default:
       break;
   }

@@ -11,6 +11,7 @@ export default async function handler(req, res) {
       try {
         if (req.query.id) {
           res.status(200).json(await Books.findById(req.query.id));
+          return;
         }
         if (req.query.name) {
           res.status(200).json(
@@ -18,46 +19,53 @@ export default async function handler(req, res) {
               name: { $regex: req.query.name, $options: "i" },
             })
           );
+          return;
         }
         if (req.query.ISBN) {
           res
             .status(200)
             .json(await Books.find({ ISBN: { $regex: req.query.ISBN } }));
+          return;
         }
         res.status(200).json(await Books.find({}));
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     case "POST":
       try {
         const book = new Books(req.body);
         const haveBook = await Books.find({ ISBN: { $regex: book.ISBN } });
         if (haveBook == "") {
           res.status(200).json(await book.save());
+          return;
         }
         res
           .status(400)
           .json({ success: false, message: "ISBN already exists" });
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     case "PUT":
       try {
         await Books.findByIdAndUpdate(req.body._id, req.body);
         res.status(200).json(await Books.findOne({ _id: req.body._id }));
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     case "DELETE":
       try {
         res.status(200).json(await Books.deleteOne({ _id: req.body._id }));
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     default:
       break;
   }

@@ -37,9 +37,11 @@ export default async function handler(req, res) {
           });
 
           res.status(200).json(revUser);
+          return;
         }
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
       break;
     case "POST":
@@ -67,6 +69,7 @@ export default async function handler(req, res) {
           const books = await Books.find({});
 
           res.status(200).json(books);
+          return;
         } else {
           const book = await Books.findOneAndUpdate(
             { idBook },
@@ -82,11 +85,12 @@ export default async function handler(req, res) {
           const books = await Books.find({});
 
           res.status(200).json(books);
+          return;
         }
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     case "DELETE":
       try {
         const { body } = req;
@@ -100,10 +104,11 @@ export default async function handler(req, res) {
         const books = await Books.find({});
 
         res.status(200).json(books);
+        return;
       } catch (error) {
         res.status(400).json({ success: false });
+        return;
       }
-      break;
     default:
       break;
   }

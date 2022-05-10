@@ -1,14 +1,16 @@
 import { useState,Fragment, useEffect, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { useSession, getSession, signOut } from "next-auth/react";
 
 export default function MyModal({ isOpen, setIsOpen}) {
     // let [isOpen, setIsOpen] = useState(false)
+    const { data: session } = useSession();
 
     const [form, setForm] = useState({
+      idUsuario: session.user.id,
       name: "",
-      // idUser: session.user.id,
       author: "",
-      reviewd:false
+      description:""
       
     });
   
@@ -154,6 +156,16 @@ export default function MyModal({ isOpen, setIsOpen}) {
                                     onChange={handleChange}
                                     placeholder='Autor...' 
                                     value={form.author} 
+                                    className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+                                </div>
+                                <div className="mt-1 rounded-md shadow-sm">
+                                  <textarea 
+                                    type="text" 
+                                    id='description' 
+                                    name='author' 
+                                    onChange={handleChange}
+                                    placeholder='Description...' 
+                                    value={form.description} 
                                     className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
                                 </div>
                               </div>

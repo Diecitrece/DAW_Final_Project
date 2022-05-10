@@ -1,15 +1,19 @@
 import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema({
+  idUsuario: {
+    type: "String",
+  },
   name: {
     type: "String",
   },
   author: {
     type: "String",
   },
-  reviewd: {
-    type: "Boolean",
+  description: {
+    type: "String",
   },
+  
 });
 
 const requests =

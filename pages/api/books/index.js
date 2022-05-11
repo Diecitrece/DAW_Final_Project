@@ -48,7 +48,7 @@ export default async function handler(req, res) {
       } catch (error) {
         res.status(400).json({ success: false });
         return;
-      }
+      } w
     case "PUT":
       try {
         await Books.findByIdAndUpdate(req.body._id, req.body);

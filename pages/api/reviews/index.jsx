@@ -1,6 +1,7 @@
 import dbConnect from "../../../lib/dbConnect";
 import Books from "../../../models/book";
 import mongoose from "mongoose";
+import logger from "../../../components/logger/createLogger";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -11,100 +12,98 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const { idReview, idUser } = req.query;
-
         if (idReview) {
           const review = await Books.find(
             { "reviews.idReview": idReview },
             { reviews: { $elemMatch: { idReview: idReview } } }
           );
-
-          res.status(200).json(review[0]);
+          logger.info("REQUEST GET reviews: " + review);
+          return res.status(200).json(review[0]);
         } else if (idUser) {
           let revUser = [];
-
           const reviews = await Books.find(
             { "reviews.idUser": idUser },
             { reviews: 1 }
           );
-
           reviews.forEach((review) => {
             review.reviews.forEach((rev) => {
               if (rev.idUser === idUser) {
-                console.log(review._id);
                 rev.idBook = review._id;
                 revUser.push(rev);
               }
             });
           });
-
-          res.status(200).json(revUser);
+          logger.info("REQUEST GET reviews: " + reviews);
+          return res.status(200).json(revUser);
         }
       } catch (error) {
-        res.status(400).json({ success: false });
+        logger.error("ERROR GET reviews: " + error);
+        return res.status(400).json({ success: false });
       }
-      break;
     case "POST":
       try {
         const { body } = req;
         const { idBook, review } = body;
 
-        const reviewExist = await Books.find({
-          "reviews.idReview": review.idReview,
-        });
+        if (review.idReview === "") {
+          //add new review
 
-        if (review.idReview == "") {
           //create an objectid with mongoose
+
           const idUnique = mongoose.Types.ObjectId();
           review.idReview = idUnique;
-        }
 
-        if (reviewExist.length === 0) {
           const book = await Books.findOneAndUpdate(
-            { idBook },
+            { _id: idBook },
             { $push: { reviews: review } },
             { new: true }
           );
-
           const books = await Books.find({});
 
-          res.status(200).json(books);
+          logger.info("REQUEST POST reviews: " + books);
+          return res.status(200).json(books);
         } else {
+          //update review
+
+          var OidReview = mongoose.Types.ObjectId(review.idReview);
+          review.idReview = OidReview;
+
           const book = await Books.findOneAndUpdate(
-            { idBook },
-            { $pull: { reviews: { idReview: review.idReview } } }
+            { "reviews.idReview": OidReview },
+            { $pull: { reviews: { idReview: OidReview } } }
           );
 
           const updateBook = await Books.findOneAndUpdate(
-            { idBook },
+            { _id: idBook },
             { $push: { reviews: review } },
             { new: true }
           );
-
           const books = await Books.find({});
-
-          res.status(200).json(books);
+          logger.info("REQUEST POST reviews: " + books);
+          return res.status(200).json(books);
         }
       } catch (error) {
-        res.status(400).json({ success: false });
+        logger.error("ERROR POST reviews: " + error);
+        return res.status(400).json({ success: false });
       }
-      break;
     case "DELETE":
       try {
         const { body } = req;
         const { idReview } = body;
 
-        const del = await Books.updateOne(
-          { "reviews.idReview": idReview },
-          { $pull: { reviews: { idReview: idReview } } }
+        const OidReview = mongoose.Types.ObjectId(idReview);
+
+        const del = await Books.findOneAndUpdate(
+          { "reviews.idReview": OidReview },
+          { $pull: { reviews: { idReview: OidReview } } }
         );
-
         const books = await Books.find({});
-
-        res.status(200).json(books);
+        logger.info("REQUEST DELETE reviews: " + books);
+        return res.status(200).json(books);
       } catch (error) {
-        res.status(400).json({ success: false });
+        logger.error("ERROR DELETE reviews: " + error);
+        return res.status(400).json({ success: false });
       }
-      break;
     default:
       break;
   }

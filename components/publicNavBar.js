@@ -178,7 +178,7 @@ export const PublicNavBar = () => {
                 styles.closeSession
               }
             >
-              <i class="fa fa-lock"></i>
+              <i className="fa fa-lock"></i>
             </a>
             <a
               href="#"

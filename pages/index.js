@@ -1,8 +1,7 @@
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { PublicNavBar } from "../components/publicNavBar";
-import Link from "next/link";
 
 const styles = {
   loginButton:
@@ -11,15 +10,8 @@ const styles = {
 
 export default function PublicIndex() {
   const { data: session } = useSession();
-  const [books, setBooks] = useState([]);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/books")
-      .then((response) => response.json())
-      .then((data) => setBooks(data));
-  }, []);
 
   if (typeof window === "undefined") {
     return null;

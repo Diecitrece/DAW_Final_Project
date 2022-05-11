@@ -12,10 +12,8 @@ const requestSchema = new mongoose.Schema({
   },
   description: {
     type: "String",
-  },
-  
+  }, 
 });
-
 const requests =
   mongoose.models.requests || mongoose.model("requests", requestSchema);
 export default requests;

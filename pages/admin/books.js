@@ -2,7 +2,7 @@ import { useSession, getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { AdminMenuBar } from "../../components/adminComponents/adminMenuBar";
 import DataTable from "react-data-table-component";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const styles = {};
 
@@ -113,11 +113,16 @@ export default function AdminIndex() {
           <div className="flex flex-row w-full h-full">
             <AdminMenuBar />
             <div className="m-auto w-1/2">
-              <input
-                placeholder="Buscar..."
-                className="m-auto form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                onChange={(e) => setFilter(e.target.value)}
-              />
+              <div className="flex w-1/4">
+                <input
+                  placeholder="Buscar..."
+                  className="m-auto form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+                <a href="/admin/books/new" className="w-min h-min m-auto ml-4">
+                  <i className="fa fa-plus text-green-600 text-2xl"></i>
+                </a>
+              </div>
               <DataTable
                 columns={columns}
                 data={dataTable}

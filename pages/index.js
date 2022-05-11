@@ -1,7 +1,8 @@
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffectn, useState } from "react";
 import { PublicNavBar } from "../components/publicNavBar";
+
 
 const styles = {
   loginButton:

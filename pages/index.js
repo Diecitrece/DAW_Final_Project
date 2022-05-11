@@ -11,7 +11,7 @@ const styles = {
 export default function PublicIndex() {
   const { data: session } = useSession();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   if (typeof window === "undefined") {
     return null;
@@ -38,7 +38,6 @@ export default function PublicIndex() {
                     </div>
                   </a>
                 </Link>
-                
               </>
             );
           })}

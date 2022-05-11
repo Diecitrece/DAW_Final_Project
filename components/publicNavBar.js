@@ -24,7 +24,6 @@ export const PublicNavBar = () => {
   const { showModal, setShowModal } = useState(false);
 
   const sleep = (milliseconds) => {
-    console.log("");
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 

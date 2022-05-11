@@ -21,6 +21,7 @@ export default async function handler(req, res) {
               name: { $regex: req.query.name, $options: "i" },
             })
           );
+          return;
         }
         logger.info("REQUEST GET User and find all");
         return res.status(200).json(await Users.find({}));

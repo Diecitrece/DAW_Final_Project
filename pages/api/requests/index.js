@@ -9,7 +9,6 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      debugger;
       try {
         if (req.query.id) {
           logger.info("REQUEST GET Request by id = " + req.query.id);

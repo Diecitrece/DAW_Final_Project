@@ -47,6 +47,7 @@ export default async function handler(req, res) {
         return res
           .status(400)
           .json({ success: false, message: "ISBN already exists" });
+        return;
       } catch (error) {
         logger.error("ERROR POST Book: " + error);
         return res.status(400).json({ success: false });

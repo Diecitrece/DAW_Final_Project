@@ -44,32 +44,37 @@ export default async function handler(req, res) {
       try {
         const { body } = req;
         const { idBook, review } = body;
-        const reviewExist = await Books.find({
-          "reviews.idReview": review.idReview,
-        });
 
-        if (review.idReview == "") {
+        if (review.idReview === "") {
+          //add new review
+
           //create an objectid with mongoose
+
           const idUnique = mongoose.Types.ObjectId();
           review.idReview = idUnique;
-        }
 
-        if (reviewExist.length === 0) {
-          await Books.findOneAndUpdate(
-            { idBook },
+          const book = await Books.findOneAndUpdate(
+            { _id: idBook },
             { $push: { reviews: review } },
             { new: true }
           );
           const books = await Books.find({});
+
           logger.info("REQUEST POST reviews: " + books);
           return res.status(200).json(books);
         } else {
-          await Books.findOneAndUpdate(
-            { idBook },
-            { $pull: { reviews: { idReview: review.idReview } } }
+          //update review
+
+          var OidReview = mongoose.Types.ObjectId(review.idReview);
+          review.idReview = OidReview;
+
+          const book = await Books.findOneAndUpdate(
+            { "reviews.idReview": OidReview },
+            { $pull: { reviews: { idReview: OidReview } } }
           );
-          await Books.findOneAndUpdate(
-            { idBook },
+
+          const updateBook = await Books.findOneAndUpdate(
+            { _id: idBook },
             { $push: { reviews: review } },
             { new: true }
           );
@@ -85,9 +90,12 @@ export default async function handler(req, res) {
       try {
         const { body } = req;
         const { idReview } = body;
-        await Books.updateOne(
-          { "reviews.idReview": idReview },
-          { $pull: { reviews: { idReview: idReview } } }
+
+        const OidReview = mongoose.Types.ObjectId(idReview);
+
+        const del = await Books.findOneAndUpdate(
+          { "reviews.idReview": OidReview },
+          { $pull: { reviews: { idReview: OidReview } } }
         );
         const books = await Books.find({});
         logger.info("REQUEST DELETE reviews: " + books);

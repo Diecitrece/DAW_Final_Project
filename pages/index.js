@@ -1,7 +1,9 @@
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PublicNavBar } from "../components/publicNavBar";
+import Link from "next/link";
+
 
 const styles = {
   loginButton:
@@ -11,6 +13,16 @@ const styles = {
 export default function PublicIndex() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [books, setBooks] = useState([]);
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/books")
+      .then((response) => response.json())
+      .then((data) => setBooks(data));
+  }, []);
+
 
   if (typeof window === "undefined") {
     return null;
@@ -19,10 +31,28 @@ export default function PublicIndex() {
     return (
       <>
         <PublicNavBar />
-        Pagina Principal
-        <button className={styles.loginButton} onClick={() => signOut()}>
-          Logout
-        </button>
+
+        <div className="grid grid-cols-3 p-1">
+          {books.map((book, index) => {
+            return (
+              <>
+                <Link href={"books/" + book._id}>
+                  <a className="mt-12 bg-teal-600 mx-auto px-10 py-8">
+                    <div>
+                      <p className="text-center">{book.name}</p>
+                      <div className="w-32 mt-4 mx-auto">
+                        <img
+                          src="https://pbs.twimg.com/media/FJApRPRWUAgOa9G.png"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </a>
+                </Link>
+              </>
+            );
+          })}
+        </div>
       </>
     );
   }

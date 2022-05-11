@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const requestSchema = new mongoose.Schema({
+  idUsuario: {
+    type: "String",
+  },
   name: {
     type: "String",
   },
@@ -10,11 +13,7 @@ const requestSchema = new mongoose.Schema({
   description: {
     type: "String",
   },
-  reviewd: {
-    type: "Boolean",
-  },
 });
-
 const requests =
   mongoose.models.requests || mongoose.model("requests", requestSchema);
 export default requests;

@@ -2,18 +2,16 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, getSession } from "next-auth/react";
 
-const Request = ({ setOpen ,open }) => {
+const Request = ({ setOpen, open }) => {
   const cancelButtonRef = useRef(null);
 
   //const [open, setOpen] = useState(false);
 
   const { data: session } = useSession();
 
-
   return (
     <>
       <div className="flex flex-wrap ">
-        
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
@@ -59,9 +57,7 @@ const Request = ({ setOpen ,open }) => {
             overflow-hidden shadow-xl 
             transform transition-all 
             sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-                >
-                 
-                </div>
+                ></div>
               </Transition.Child>
             </div>
           </Dialog>
@@ -69,7 +65,6 @@ const Request = ({ setOpen ,open }) => {
       </div>
     </>
   );
-}
-
+};
 
 export default Request;

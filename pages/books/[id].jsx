@@ -296,7 +296,6 @@ export default function LoadBook(props) {
                   <p>No hay reseñas para este libro</p>
                 )}
               </div>
-              
             </div>
           </div>
         </>

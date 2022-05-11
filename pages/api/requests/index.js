@@ -1,5 +1,6 @@
 import dbConnect from "../../../lib/dbConnect";
 import Request from "../../../models/request";
+import logger from "../../../components/logger/createLogger";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,47 +9,56 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      if (req.query.id) {
-        res.status(200).json(await Request.findById(req.query.id));
-        return;
-      } else {
-        res.status(200).json(await Request.find({}));
-        return;
+      try {
+        if (req.query.id) {
+          logger.info("REQUEST GET Request by id = " + req.query.id);
+          return res.status(200).json(await Request.findById(req.query.id));
+        } else {
+          logger.info("REQUEST GET Request and find all");
+          return res.status(200).json(await Request.find({}));
+        }
+      } catch (error) {
+        logger.error("ERROR GET Request: " + error);
+        return res.status(400).json({ success: false });
       }
     case "POST":
       try {
         if (req.body.name) {
           const request = new Request(req.body);
-          res.status(200).json(await request.save());
-          return;
+          logger.info("REQUEST POST Request by name = " + req.body.name);
+          return res.status(200).json(await request.save());
         }
-        res.status(400).json({ success: false });
-        return;
-      } catch (err) {
-        res.status(500).json({ message: err.message });
-        return;
+        logger.error("REQUEST POST Request name empty: ");
+        return res.status(400).json({ success: false });
+      } catch (error) {
+        logger.error("ERROR POST Request: " + err);
+        return res.status(500).json({ message: err.message });
       }
     case "PUT":
       try {
         if (req.body._id) {
           const request = new Request(req.body);
+          logger.info("REQUEST PUT Request by id = " + req.body._id);
           await Request.findOneAndUpdate({ _id: req.body._id }, request);
-          res.status(200).json(await Request.findOne({ _id: req.body._id }));
-          return;
+          return res
+            .status(200)
+            .json(await Request.findOne({ _id: req.body._id }));
         }
-        res.status(400).json({ success: false });
-        return;
-      } catch (err) {
-        res.status(500).json({ message: err.message });
-        return;
+        logger.error("REQUEST PUT Request id empty: ");
+        return res.status(400).json({ success: false });
+      } catch (error) {
+        logger.error("ERROR PUT Request: " + err);
+        return res.status(500).json({ message: err.message });
       }
     case "DELETE":
       try {
-        res.status(200).json(await Request.deleteOne({ _id: req.body._id }));
-        return;
+        logger.info("REQUEST DELETE Request by id = " + req.body._id);
+        return res
+          .status(200)
+          .json(await Request.deleteOne({ _id: req.body._id }));
       } catch (error) {
-        res.status(400).json({ success: false });
-        return;
+        logger.error("ERROR DELETE Request: " + err);
+        return res.status(400).json({ success: false });
       }
     default:
       break;

@@ -58,9 +58,9 @@ export default function LoadBook(props) {
 
   let date = new Date();
 
-  if(session){
+  if (session) {
     var idUser = session.user.id;
-  }else{
+  } else {
     var idUser = "";
   }
 

@@ -1,6 +1,7 @@
 import dbConnect from "../../../lib/dbConnect";
 import Books from "../../../models/book";
 import mongoose from "mongoose";
+import logger from "../../../components/logger/createLogger";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -11,22 +12,19 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const { idReview, idUser } = req.query;
-
         if (idReview) {
           const review = await Books.find(
             { "reviews.idReview": idReview },
             { reviews: { $elemMatch: { idReview: idReview } } }
           );
-
-          res.status(200).json(review[0]);
+          logger.info("REQUEST GET reviews: " + review);
+          return res.status(200).json(review[0]);
         } else if (idUser) {
           let revUser = [];
-
           const reviews = await Books.find(
             { "reviews.idUser": idUser },
             { reviews: 1 }
           );
-
           reviews.forEach((review) => {
             review.reviews.forEach((rev) => {
               if (rev.idUser === idUser) {
@@ -35,15 +33,13 @@ export default async function handler(req, res) {
               }
             });
           });
-
-          res.status(200).json(revUser);
-          return;
+          logger.info("REQUEST GET reviews: " + reviews);
+          return res.status(200).json(revUser);
         }
       } catch (error) {
-        res.status(400).json({ success: false });
-        return;
+        logger.error("ERROR GET reviews: " + error);
+        return res.status(400).json({ success: false });
       }
-      break;
     case "POST":
       try {
         const { body } = req;
@@ -62,11 +58,10 @@ export default async function handler(req, res) {
             { $push: { reviews: review } },
             { new: true }
           );
-
           const books = await Books.find({});
 
-          res.status(200).json(books);
-          return;
+          logger.info("REQUEST POST reviews: " + books);
+          return res.status(200).json(books);
         } else {
           //update review
 
@@ -83,15 +78,13 @@ export default async function handler(req, res) {
             { $push: { reviews: review } },
             { new: true }
           );
-
           const books = await Books.find({});
-
-          res.status(200).json(books);
-          return;
+          logger.info("REQUEST POST reviews: " + books);
+          return res.status(200).json(books);
         }
       } catch (error) {
-        res.status(400).json({ success: false });
-        return;
+        logger.error("ERROR POST reviews: " + error);
+        return res.status(400).json({ success: false });
       }
     case "DELETE":
       try {
@@ -104,14 +97,12 @@ export default async function handler(req, res) {
           { "reviews.idReview": OidReview },
           { $pull: { reviews: { idReview: OidReview } } }
         );
-
         const books = await Books.find({});
-
-        res.status(200).json(books);
-        return;
+        logger.info("REQUEST DELETE reviews: " + books);
+        return res.status(200).json(books);
       } catch (error) {
-        res.status(400).json({ success: false });
-        return;
+        logger.error("ERROR DELETE reviews: " + error);
+        return res.status(400).json({ success: false });
       }
     default:
       break;

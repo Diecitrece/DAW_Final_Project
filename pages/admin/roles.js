@@ -23,28 +23,28 @@ export default function AdminRoles() {
 
   const groupBy = (objectArray, property) => {
     return objectArray.reduce((acc, obj) => {
-       const key = obj[property];
-       if (!acc[key]) {
-          acc[key] = [];
-       }
-       // Add object to list for given key's value
-       acc[key].push(obj);
-       return acc;
+      const key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      // Add object to list for given key's value
+      acc[key].push(obj);
+      return acc;
     }, {});
- }
+  };
 
   const loadRoles = () => {
     getRoles()
       .then((response) => JSON.parse(response))
       .then((data) => {
-        let groupedRoles = groupBy(data, 'role');
+        let groupedRoles = groupBy(data, "role");
         let x = Object.keys(groupedRoles);
         x.map((key, i) => {
           let newRole = {
-            "name": x[i],
-            "total": groupedRoles[key].length
-          }
-          setDataTable(oldRoles => [...oldRoles, newRole]);
+            name: x[i],
+            total: groupedRoles[key].length,
+          };
+          setDataTable((oldRoles) => [...oldRoles, newRole]);
         });
       });
   };

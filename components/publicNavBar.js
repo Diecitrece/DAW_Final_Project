@@ -2,7 +2,8 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
+import React from "react";
+import MyDialog from "./requestModal";
 const styles = {
   liNavBar:
     "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:hover:text-white text-gray-400 hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700",
@@ -20,6 +21,7 @@ const styles = {
 export const PublicNavBar = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const { showModal, setShowModal } = useState(false);
 
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -38,6 +40,7 @@ export const PublicNavBar = () => {
   const [searchedBook, setSearchedBook] = useState("");
   const [suggestions, setSuggesitons] = useState([]);
   const [focusSuggestion, setFocusSuggestion] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   //useEffects
   useEffect(async () => {
@@ -115,9 +118,17 @@ export const PublicNavBar = () => {
                     );
                   }
                 })}
-                <a href={"#"} className={styles.liSuggestMenuNewBook}>
+                <a
+                  href={"#"}
+                  className={styles.liSuggestMenuNewBook}
+                  onClick={async () => {
+                    await sleep(100);
+                    setIsOpen(true);
+                  }}
+                >
                   Solicitar libro...
                 </a>
+                <MyDialog setIsOpen={setIsOpen} isOpen={isOpen}></MyDialog>
               </ul>
             </div>
             <button
@@ -130,7 +141,6 @@ export const PublicNavBar = () => {
                 menuMobileState == "hidden"
                   ? setMenuMobileState("")
                   : setMenuMobileState("hidden");
-                console.log(menuMobileState);
               }}
             >
               <svg

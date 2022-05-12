@@ -6,6 +6,7 @@ import { PublicNavBar } from "../../components/publicNavBar";
 import FormModal from "../../components/formToAddReview";
 import { Menu, Transition } from "@headlessui/react";
 import { data } from "autoprefixer";
+import Report from "../../components/report";
 
 export default function LoadBook(props) {
   const { data: session } = useSession();
@@ -14,14 +15,15 @@ export default function LoadBook(props) {
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState();
+  const [users, setUsers] = useState();
+  const [requestOpen, setRequestOpen] = useState(false);
 
   //let update =false;
   const [change, setChange] = useState(false);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    fetch(`/api/books?id=${id}`)
+  useEffect(async () => {
+    await fetch(`/api/books?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBook(data);
@@ -34,29 +36,50 @@ export default function LoadBook(props) {
     setChange(false);
   }, [id, change]);
 
-  /*
-  const getName = async (id) => {
-    await fetch(`/api/users?id=${id}`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data.name);
-      return "panceta";
-    })
-    .catch((err) => {
-      //setError(err);
-      console.log(err);
-    });
+  useEffect(async () => {
+    await fetch(`/api/users`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+    setChange(false);
+  }, []);
+
+  const findUser = (id) => {
+    if (users) {
+      return users.find((user) => user._id === id);
+    }
+  };
+
+  let date = new Date();
+
+  if(session){
+    var idUser = session.user.id;
+  }else{
+    var idUser = "";
   }
-  */
 
   const [form, setForm] = useState({
     idReview: "",
-    idUser: session.user.id,
-    pubDate: "2008-12-31 00:00:00",
+    idUser: idUser,
+    pubDate: date,
     description: "",
     rating: "1",
     reports: [],
   });
+
+  const handleDelete = (id) => {
+    var option = confirm("¿Estas seguro de que quieres eliminar esta reseña?");
+
+    if (option === true) {
+      deleteReview(id);
+    }
+  };
 
   const deleteReview = async (id) => {
     try {
@@ -90,7 +113,7 @@ export default function LoadBook(props) {
     return null;
   }
   if (session) {
-    if (session.user.role == "Client") {
+    if (session.user.role === "Admin" || session.user.role === "Client") {
       return (
         <>
           <link
@@ -141,12 +164,14 @@ export default function LoadBook(props) {
                   form={form}
                   setForm={setForm}
                 />
+                <Report open={requestOpen} setOpen={setRequestOpen} />
 
                 {/*check if there are reviews*/}
-                {book.reviews ? (
+                {book.reviews && users ? (
                   /*show the reviews*/
 
                   book.reviews.map((review) => {
+                    const user = findUser(review.idUser);
                     return (
                       <>
                         <div className="mb-4" key={review.id}>
@@ -155,16 +180,15 @@ export default function LoadBook(props) {
                               <div className=" flex flex-wrap mb-4">
                                 <div>
                                   <img
-                                    src="https://www.diez.hn/binrepository/agregar-un-titulo-1_1211524_20220329104133.jpg"
+                                    src={user.image}
                                     alt="profile"
                                     className="rounded-full mr-2 w-12 h-12"
                                   />
                                 </div>
                                 <div className="">
-                                  <div className="name">
+                                  <div className="">
                                     <p className="text-xl font-semibold mb-2">
-                                      {/*getName(review.idUser)*/}NOmbre de
-                                      usuario
+                                      {user.name}
                                     </p>
                                   </div>
                                   <div className="flex">
@@ -190,9 +214,9 @@ export default function LoadBook(props) {
                                     className="relative inline-block "
                                   >
                                     <div>
-                                      <Menu.Button className="">
+                                      <Menu.Button className="text-xl	font-bold hover:font-extrabold ">
                                         <i className="fa-solid fa-ellipsis-vertical"></i>
-                                        Opciones
+                                        · · ·
                                       </Menu.Button>
                                     </div>
                                     <Transition
@@ -245,7 +269,7 @@ export default function LoadBook(props) {
                                                         : "text-gray-900"
                                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                                     onClick={() =>
-                                                      deleteReview(
+                                                      handleDelete(
                                                         review.idReview
                                                       )
                                                     }
@@ -267,6 +291,9 @@ export default function LoadBook(props) {
                                                       ? "bg-blue-500 text-white"
                                                       : "text-gray-900"
                                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                  onClick={() =>
+                                                    setRequestOpen(true)
+                                                  }
                                                 >
                                                   Reportar review
                                                 </button>
@@ -281,11 +308,10 @@ export default function LoadBook(props) {
                               </div>
                             </div>
 
-                            <p className="text-xl mb-4">{review.description}</p>
+                            <p className="text-xl mb-4 break-words">
+                              {review.description}
+                            </p>
                             <p>{review.pubDate}</p>
-                            {session.user.id === review.idUser && (
-                              <p>Puedes eliminar y editar</p>
-                            )}
                           </div>
                         </div>
                       </>
@@ -306,7 +332,6 @@ export default function LoadBook(props) {
   }
   router.push("/login");
   return null;
-  //show the book details with the book cover, title, author, and description with tailwind classes
 }
 
 export async function getServerSideProps(context) {

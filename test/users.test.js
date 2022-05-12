@@ -20,4 +20,10 @@ describe("API Users", () => {
     );
     expect(response.data[0].name).toBe("ADCairex");
   });
+  it("DELETE pass User and return status code 200", async () => {
+    const response = await axios.delete("http://localhost:3000/api/users/", {
+      _id: "6245cca38192d5d41e32d314",
+    });
+    expect(response.status).toBe(200);
+  });
 });

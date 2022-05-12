@@ -158,7 +158,7 @@ export default function MyModal({ isOpen, setIsOpen }) {
                                 htmlFor="first_name"
                                 className="block text-sm font-medium leading-5 text-gray-700"
                               >
-                               Descrpcion
+                                Descrpcion
                               </label>
                               <div className="mt-1 rounded-md shadow-sm">
                                 <textarea

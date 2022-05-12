@@ -16,15 +16,15 @@ describe("API Books", () => {
   });
   it("GET some Book id and return this book", async () => {
     const response = await axios.get(
-      "http://localhost:3000/api/books/?id=625fe716210758bc896d629d"
+      "http://localhost:3000/api/books/?id=6265072532361f54dcd727d4"
     );
-    expect(response.data._id).toBe("625fe716210758bc896d629d");
+    expect(response.data._id).toBe("6265072532361f54dcd727d4");
   });
   it("GET some Book name and return this book", async () => {
     const response = await axios.get(
       "http://localhost:3000/api/books/?name=Quijote"
     );
-    expect(response.data[0].name).toBe("Quijote");
+    expect(response.data[0].name).toBe("Don Quijote");
   });
   it("GET some Book ISBN and return this book", async () => {
     const response = await axios.get(

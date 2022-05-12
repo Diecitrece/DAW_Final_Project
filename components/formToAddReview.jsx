@@ -11,8 +11,7 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
 
   let date = new Date();
 
-  function getDate (){
-
+  function getDate() {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();

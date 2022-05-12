@@ -21,12 +21,21 @@ export default async function handler(req, res) {
               name: { $regex: req.query.name, $options: "i" },
             })
           );
-          return;
         }
         logger.info("REQUEST GET User and find all");
         return res.status(200).json(await Users.find({}));
       } catch (error) {
         logger.error("ERROR GET User: " + error);
+        return res.status(400).json({ success: false });
+      }
+    case "DELETE":
+      try {
+        logger.info("REQUEST DELETE Users: " + req.body);
+        return res
+          .status(200)
+          .json(await Users.deleteOne({ _id: req.body._id }));
+      } catch (error) {
+        logger.error("ERROR DELETE Users: " + error);
         return res.status(400).json({ success: false });
       }
     default:

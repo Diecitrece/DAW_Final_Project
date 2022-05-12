@@ -121,7 +121,7 @@ export default function MyModal({ isOpen, setIsOpen }) {
                                 htmlFor="description"
                                 className="block text-sm  font-medium leading-5 text-gray-700"
                               >
-                                Titulo
+                                Título
                               </label>
                               <div className="">
                                 <input
@@ -141,7 +141,7 @@ export default function MyModal({ isOpen, setIsOpen }) {
                                 htmlFor="first_name"
                                 className="block text-sm font-medium leading-5 text-gray-700"
                               >
-                                Autor
+                                Autor/a
                               </label>
                               <div className="mt-1 rounded-md shadow-sm">
                                 <input
@@ -149,7 +149,7 @@ export default function MyModal({ isOpen, setIsOpen }) {
                                   id="author"
                                   name="author"
                                   onChange={handleChange}
-                                  placeholder="Autor..."
+                                  placeholder="Autor/a..."
                                   value={form.author}
                                   className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                 />
@@ -158,7 +158,7 @@ export default function MyModal({ isOpen, setIsOpen }) {
                                 htmlFor="first_name"
                                 className="block text-sm font-medium leading-5 text-gray-700"
                               >
-                               Descrpcion
+                               Descripción
                               </label>
                               <div className="mt-1 rounded-md shadow-sm">
                                 <textarea
@@ -166,7 +166,7 @@ export default function MyModal({ isOpen, setIsOpen }) {
                                   id="description"
                                   name="description"
                                   onChange={handleChange}
-                                  placeholder="Description..."
+                                  placeholder="Descripción..."
                                   value={form.description}
                                   className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                 />

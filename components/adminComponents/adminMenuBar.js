@@ -31,7 +31,7 @@ export const AdminMenuBar = () => {
               className="m-auto h-28"
             />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white m-auto">
-              Hermanos Amoros
+              Hermanos Amorós
             </span>
           </li>
           <li>

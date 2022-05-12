@@ -17,7 +17,7 @@ export default function AdminReports() {
             <AdminMenuBar />
             <div className="m-auto w-1/2">
               <h1 className="w-3/5 text-6xl text-white text-center bg-red-900 rounded-lg mx-5">
-                Esta pagina esta contruyendose
+                Esta página está contruyéndose
               </h1>
             </div>
           </div>

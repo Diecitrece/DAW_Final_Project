@@ -133,7 +133,7 @@ export default function LoadBook(props) {
               <div className="w-full md:w-1/2 lg:w1/1 p-4">
                 <h1 className="text-4xl font-bold mb-2">{book.name}</h1>
                 <p className="text-2xl font-semibold mb-4 text-slate-800/75">
-                  Autor del libro
+                  Autor/a del libro
                 </p>
                 <div className="mb-4">
                   <h4 className="text-xl font-semibold mb-2">Descripción</h4>

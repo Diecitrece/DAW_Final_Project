@@ -2,86 +2,18 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, getSession } from "next-auth/react";
 
-const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
+const Report = ({ setOpen ,open }) => {
   const cancelButtonRef = useRef(null);
 
   //const [open, setOpen] = useState(false);
 
   const { data: session } = useSession();
 
-  let date = new Date();
-
-  function getDate (){
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    let hour = date.getHours();
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
-
-    return `${day}/${month}/${year} ${hour}:${minutes}:${seconds}`;
-  }
-
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
-  const reviewObject = {
-    idBook: idbook,
-    review: form,
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    postData(reviewObject);
-  };
-
-  const postData = async (form) => {
-    try {
-      //console.log(form);
-
-      const res = await fetch("/api/reviews", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      setOpen(false);
-      setChange(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>
       <div className="flex flex-wrap ">
-        <button
-          onClick={() => {
-            setOpen(true);
-            setForm({
-              idReview: "",
-              idUser: session.user.id,
-              pubDate: getDate(),
-              description: "",
-              rating: "1",
-              reports: [],
-            });
-          }}
-          className="mb-5 mx-auto rounded-md
-                   border border-transparent shadow-sm px-4 py-2 bg-blue-600
-                    text-base font-medium text-white hover:bg-blue-700"
-        >
-          Añadir reseña
-        </button>
+        
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
@@ -128,7 +60,7 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
             transform transition-all 
             sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                 >
-                  <form onSubmit={handleSubmit}>
+                  <form >
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                       <div className=" sm:flex sm:items-start">
                         <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -136,10 +68,31 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
                             as="h3"
                             className="text-lg leading-6 font-medium text-gray-900"
                           >
-                            Añade una reseña
+                            Reportar review
                           </Dialog.Title>
                           <div className="mt-2">
                             <div className=" mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                              
+                              <div className="sm:col-span-4">
+                                <label
+                                  htmlFor="first_name"
+                                  className="block text-sm font-medium leading-5 text-gray-700"
+                                >
+                                  Puntuación
+                                </label>
+                                <div className="mt-1 rounded-md shadow-sm">
+                                  <select
+                                    name="rating"
+                                    
+                                    required
+                                    className=" block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                  >
+                                    <option value="1">Falta de repeto</option>
+                                    <option value="2">Lenguaje inapropiado</option>
+                                    <option value="3">Incitación al odio</option>
+                                  </select>
+                                </div>
+                              </div>
                               <div className="sm:col-span-4">
                                 <label
                                   htmlFor="description"
@@ -152,36 +105,11 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
                                     id="description"
                                     name="description"
                                     type="text"
-                                    value={form.description}
-                                    onChange={handleChange}
+                                    
                                     required
-                                    placeholder="Escribe tu reseña..."
-                                    maxlength="500"
+                                    placeholder="Describe el reporte..."
                                     className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                   />
-                                </div>
-                              </div>
-                              <div className="sm:col-span-4">
-                                <label
-                                  htmlFor="first_name"
-                                  className="block text-sm font-medium leading-5 text-gray-700"
-                                >
-                                  Puntuación
-                                </label>
-                                <div className="mt-1 rounded-md shadow-sm">
-                                  <select
-                                    name="rating"
-                                    onChange={handleChange}
-                                    required
-                                    className=" block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                                    value={form.rating}
-                                  >
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -206,18 +134,11 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
                    bg-red-500 text-base font-medium text-white
                     hover:bg-red-700 sm:mt-0
                       sm:ml-3 sm:w-auto sm:text-sm"
+                        
+                        ref={cancelButtonRef}
                         onClick={() => {
                           setOpen(false);
-                          setForm({
-                            idReview: "",
-                            idUser: session.user.id,
-                            pubDate: "2008-12-31 00:00:00",
-                            description: "",
-                            rating: "1",
-                            reports: [],
-                          });
                         }}
-                        ref={cancelButtonRef}
                       >
                         Cancelar
                       </button>
@@ -231,6 +152,7 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
       </div>
     </>
   );
-};
+}
 
-export default FormModal;
+
+export default Report;

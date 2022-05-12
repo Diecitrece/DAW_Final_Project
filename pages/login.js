@@ -13,6 +13,10 @@ export default function Login() {
 
   if (typeof window === "undefined") return null;
   if (session) {
+    if (session.user.banned) {
+      router.push("/banned")
+      return null;
+    }
     router.push("/");
     return null;
   }

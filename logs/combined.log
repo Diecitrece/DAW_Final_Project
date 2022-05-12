@@ -222,3 +222,88 @@
 {"level":"info","message":"REQUEST GET Book by id = 627ab6f8ffdd7255c62a5cd3"}
 {"level":"info","message":"REQUEST GET Book and find all"}
 {"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User by id = 6245cca38192d5d41e32d314"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET reviews: {\n  _id: new ObjectId(\"626ed6e5e6a0c2e757ef8527\"),\n  reviews: [\n    {\n      idReview: new ObjectId(\"627d2b8699b31251f7861657\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:45:6',\n      description: 'asdf',\n      rating: '1',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2bc999b31251f786166e\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:46:11',\n      description: 'dsa',\n      rating: '5',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2e4a12a2e9e15e7c114f\"),\n      idUser: '627d2e4612a2e9e15e7c1147',\n      pubDate: '12/5/2022 17:56:56',\n      description: 'asdfasdf',\n      rating: '1',\n      reports: []\n    }\n  ]\n}"}
+{"level":"info","message":"REQUEST GET User by id = 6245cca38192d5d41e32d314"}
+{"level":"info","message":"REQUEST GET reviews: {\n  _id: new ObjectId(\"626ed6e5e6a0c2e757ef8527\"),\n  reviews: [\n    {\n      idReview: new ObjectId(\"627d2b8699b31251f7861657\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:45:6',\n      description: 'asdf',\n      rating: '1',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2bc999b31251f786166e\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:46:11',\n      description: 'dsa',\n      rating: '5',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2e4a12a2e9e15e7c114f\"),\n      idUser: '627d2e4612a2e9e15e7c1147',\n      pubDate: '12/5/2022 17:56:56',\n      description: 'asdfasdf',\n      rating: '1',\n      reports: []\n    }\n  ]\n}"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User by id = 6245cca38192d5d41e32d314"}
+{"level":"info","message":"REQUEST GET reviews: {\n  _id: new ObjectId(\"626ed6e5e6a0c2e757ef8527\"),\n  reviews: [\n    {\n      idReview: new ObjectId(\"627d2b8699b31251f7861657\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:45:6',\n      description: 'asdf',\n      rating: '1',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2bc999b31251f786166e\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:46:11',\n      description: 'dsa',\n      rating: '5',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2e4a12a2e9e15e7c114f\"),\n      idUser: '627d2e4612a2e9e15e7c1147',\n      pubDate: '12/5/2022 17:56:56',\n      description: 'asdfasdf',\n      rating: '1',\n      reports: []\n    }\n  ]\n}"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User by id = 6245cca38192d5d41e32d314"}
+{"level":"info","message":"REQUEST GET reviews: {\n  _id: new ObjectId(\"626ed6e5e6a0c2e757ef8527\"),\n  reviews: [\n    {\n      idReview: new ObjectId(\"627d2b8699b31251f7861657\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:45:6',\n      description: 'asdf',\n      rating: '1',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2bc999b31251f786166e\"),\n      idUser: '6245cca38192d5d41e32d314',\n      pubDate: '12/5/2022 17:46:11',\n      description: 'dsa',\n      rating: '5',\n      reports: [],\n      idBook: new ObjectId(\"626ed6e5e6a0c2e757ef8527\")\n    },\n    {\n      idReview: new ObjectId(\"627d2e4a12a2e9e15e7c114f\"),\n      idUser: '627d2e4612a2e9e15e7c1147',\n      pubDate: '12/5/2022 17:56:56',\n      description: 'asdfasdf',\n      rating: '1',\n      reports: []\n    }\n  ]\n}"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST POST User by id = 627d4a9f12a2e9e15e7c119c"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST POST User by id = 627d4a9f12a2e9e15e7c119c"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST POST User by id = 627d4adf12a2e9e15e7c11b9"}
+{"level":"info","message":"REQUEST GET User and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}
+{"level":"info","message":"REQUEST GET Book and find all"}

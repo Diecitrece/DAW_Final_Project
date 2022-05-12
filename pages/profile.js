@@ -15,6 +15,10 @@ export default function Profile() {
   const router = useRouter();
 
   if (session) {
+    if (session.user.banned) {
+      router.push("/banned")
+      return null;
+    }
     useEffect(() => {
       if (userData) {
         let url = "api/reviews?idUser=" + userData._id;

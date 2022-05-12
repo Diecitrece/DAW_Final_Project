@@ -21,39 +21,10 @@ export default function PublicIndex() {
       .then((data) => setBooks(data));
   }, []);
 
-  if (typeof window === "undefined") {
-    return null;
-  }
   if (session) {
-    if (session.user.banned) {
-      router.push("/banned")
-      return null;
-    }
     return (
       <>
-        <PublicNavBar />
-
-        <div className="grid grid-cols-3 p-1">
-          {books.map((book, index) => {
-            return (
-              <>
-                <Link href={"books/" + book._id}>
-                  <a className="mt-12 bg-teal-600 mx-auto px-10 py-8">
-                    <div>
-                      <p className="text-center">{book.name}</p>
-                      <div className="w-32 mt-4 mx-auto">
-                        <img
-                          src="https://pbs.twimg.com/media/FJApRPRWUAgOa9G.png"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </a>
-                </Link>
-              </>
-            );
-          })}
-        </div>
+        baneado tontito
       </>
     );
   }

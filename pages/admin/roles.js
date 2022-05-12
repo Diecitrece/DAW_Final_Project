@@ -11,35 +11,41 @@ export default function AdminRoles() {
   const router = useRouter();
 
   const [dataTable, setDataTable] = useState([]);
-  const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    loadBooks();
-  }, [filter]);
+    loadRoles();
+  }, []);
 
-  const getBooks = async () => {
-    const res = await fetch("/api/books?name=" + filter);
+  const getRoles = async () => {
+    const res = await fetch("/api/users");
     return await res.text();
   };
 
-  const deleteBook = async (id) => {
-    const res = await fetch("/api/books", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: id,
-      }),
-    });
-    loadBooks();
+  const groupBy = (objectArray, property) => {
+    return objectArray.reduce((acc, obj) => {
+      const key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      // Add object to list for given key's value
+      acc[key].push(obj);
+      return acc;
+    }, {});
   };
 
-  const loadBooks = () => {
-    getBooks()
+  const loadRoles = () => {
+    getRoles()
       .then((response) => JSON.parse(response))
       .then((data) => {
-        setDataTable(data);
+        let groupedRoles = groupBy(data, "role");
+        let x = Object.keys(groupedRoles);
+        x.map((key, i) => {
+          let newRole = {
+            name: x[i],
+            total: groupedRoles[key].length,
+          };
+          setDataTable((oldRoles) => [...oldRoles, newRole]);
+        });
       });
   };
 
@@ -52,45 +58,8 @@ export default function AdminRoles() {
     },
     {
       name: "Nº Personas",
-      selector: (row) => row.ISBN,
+      selector: (row) => row.total,
       sortable: true,
-    },
-    {
-      name: "Reseñas",
-      cell: (row) => (
-        <>
-          <div className="flex space-x-4">
-            <span>{row.reviews.length}</span>
-            <a href={"/admin/books/reviews?id=" + row._id}>
-              <i class="fa fa-eye text-base"></i>
-            </a>
-          </div>
-        </>
-      ),
-    },
-    {
-      name: "Acciones",
-      cell: (row) => (
-        <>
-          <div className="flex space-x-4">
-            <a
-              href={
-                "/admin/books/edit?id=" +
-                row._id +
-                "&name=" +
-                row.name +
-                "&ISBN=" +
-                row.ISBN
-              }
-            >
-              <i class="fa fa-pen text-green-600"></i>
-            </a>
-            <a href="#" onClick={() => deleteBook(row._id)}>
-              <i class="fa fa-trash text-red-600"></i>
-            </a>
-          </div>
-        </>
-      ),
     },
   ];
 
@@ -113,11 +82,6 @@ export default function AdminRoles() {
           <div className="flex flex-row w-full h-full">
             <AdminMenuBar />
             <div className="m-auto w-1/2">
-              <input
-                placeholder="Buscar..."
-                className="m-auto form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                onChange={(e) => setFilter(e.target.value)}
-              />
               <DataTable
                 columns={columns}
                 data={dataTable}

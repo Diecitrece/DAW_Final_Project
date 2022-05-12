@@ -10,7 +10,7 @@ const styles = {
 
 export default function AdminIndex() {
   const { data: session } = useSession();
-
+  const router = useRouter();
   const [name, setName] = useState("");
   const [ISBN, setISBN] = useState("");
 

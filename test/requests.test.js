@@ -1,6 +1,7 @@
 const axios = require("axios");
 describe("API Books", () => {
   it("GET in API Requests and return status code 200", async () => {
+    debugger;
     const response = await axios.get("http://localhost:3000/api/requests/");
     expect(response.status).toBe(200);
   });

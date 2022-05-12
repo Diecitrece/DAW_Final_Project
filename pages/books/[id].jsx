@@ -172,8 +172,6 @@ export default function LoadBook(props) {
 
                   book.reviews.map((review) => {
                     const user = findUser(review.idUser);
-                    console.log(user.name);
-
                     return (
                       <>
                         <div className="mb-4" key={review.id}>

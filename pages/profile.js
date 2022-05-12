@@ -69,7 +69,7 @@ export default function Profile() {
             <p>Correo: {userData.email}</p>
             <p className={userData.banned ? "" : "hidden"}>
               <span className="font-bold text-red-500">
-                En periodo de sancion
+                En período de sanción
               </span>
             </p>
             <p>Reseñas: {reviewNum}</p>

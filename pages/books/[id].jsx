@@ -113,7 +113,7 @@ export default function LoadBook(props) {
     return null;
   }
   if (session) {
-    if (session.user.role == "Client") {
+    if (session.user.role === "Admin" || session.user.role === "Client") {
       return (
         <>
           <link

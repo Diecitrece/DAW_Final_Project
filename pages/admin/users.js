@@ -22,6 +22,19 @@ export default function AdminIndex() {
     return await res.text();
   };
 
+  const deleteUser = async (id) => {
+    const res = await fetch("/api/users", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: id,
+      }),
+    })
+    loadUsers();
+  }
+
   const toggleBan = async (id) => {
     await fetch("/api/users/toggleBan", {
       method: "POST",
@@ -70,6 +83,16 @@ export default function AdminIndex() {
           ) : (
             <i class="fa fa-check text-green-600 text-lg"></i>
           )}
+        </a>
+      ),
+      width: "100px",
+    },
+    {
+      name: "Acciones",
+      center: true,
+      cell: (row) => (
+        <a href="#" onClick={() => deleteUser(row._id)}>
+          <i class="fa fa-trash text-red-600"></i>          
         </a>
       ),
       width: "100px",

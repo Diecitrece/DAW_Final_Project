@@ -2,18 +2,16 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, getSession } from "next-auth/react";
 
-const Report = ({ setOpen ,open }) => {
+const Report = ({ setOpen, open }) => {
   const cancelButtonRef = useRef(null);
 
   //const [open, setOpen] = useState(false);
 
   const { data: session } = useSession();
 
-
   return (
     <>
       <div className="flex flex-wrap ">
-        
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
@@ -60,7 +58,7 @@ const Report = ({ setOpen ,open }) => {
             transform transition-all 
             sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                 >
-                  <form >
+                  <form>
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                       <div className=" sm:flex sm:items-start">
                         <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -72,7 +70,6 @@ const Report = ({ setOpen ,open }) => {
                           </Dialog.Title>
                           <div className="mt-2">
                             <div className=" mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
-                              
                               <div className="sm:col-span-4">
                                 <label
                                   htmlFor="first_name"
@@ -83,13 +80,16 @@ const Report = ({ setOpen ,open }) => {
                                 <div className="mt-1 rounded-md shadow-sm">
                                   <select
                                     name="rating"
-                                    
                                     required
                                     className=" block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                   >
                                     <option value="1">Falta de repeto</option>
-                                    <option value="2">Lenguaje inapropiado</option>
-                                    <option value="3">Incitación al odio</option>
+                                    <option value="2">
+                                      Lenguaje inapropiado
+                                    </option>
+                                    <option value="3">
+                                      Incitación al odio
+                                    </option>
                                   </select>
                                 </div>
                               </div>
@@ -105,7 +105,6 @@ const Report = ({ setOpen ,open }) => {
                                     id="description"
                                     name="description"
                                     type="text"
-                                    
                                     required
                                     placeholder="Describe el reporte..."
                                     className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -134,7 +133,6 @@ const Report = ({ setOpen ,open }) => {
                    bg-red-500 text-base font-medium text-white
                     hover:bg-red-700 sm:mt-0
                       sm:ml-3 sm:w-auto sm:text-sm"
-                        
                         ref={cancelButtonRef}
                         onClick={() => {
                           setOpen(false);
@@ -152,7 +150,6 @@ const Report = ({ setOpen ,open }) => {
       </div>
     </>
   );
-}
-
+};
 
 export default Report;

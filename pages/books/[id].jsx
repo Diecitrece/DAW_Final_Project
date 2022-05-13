@@ -17,6 +17,8 @@ export default function LoadBook(props) {
   const [error, setError] = useState(null);
   const [users, setUsers] = useState();
   const [requestOpen, setRequestOpen] = useState(false);
+  const [idReviewToReport, setidReviewToReport] = useState("");
+
 
   //let update =false;
   const [change, setChange] = useState(false);
@@ -58,9 +60,9 @@ export default function LoadBook(props) {
 
   let date = new Date();
 
-  if(session){
+  if (session) {
     var idUser = session.user.id;
-  }else{
+  } else {
     var idUser = "";
   }
 
@@ -164,7 +166,11 @@ export default function LoadBook(props) {
                   form={form}
                   setForm={setForm}
                 />
-                <Report open={requestOpen} setOpen={setRequestOpen} />
+                <Report
+                  open={requestOpen}
+                  setOpen={setRequestOpen}
+                  idReview={idReviewToReport}
+                />
 
                 {/*check if there are reviews*/}
                 {book.reviews && users ? (
@@ -215,7 +221,6 @@ export default function LoadBook(props) {
                                   >
                                     <div>
                                       <Menu.Button className="text-xl	font-bold hover:font-extrabold ">
-                                        <i className="fa-solid fa-ellipsis-vertical"></i>
                                         · · ·
                                       </Menu.Button>
                                     </div>
@@ -291,9 +296,10 @@ export default function LoadBook(props) {
                                                       ? "bg-blue-500 text-white"
                                                       : "text-gray-900"
                                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                                  onClick={() =>
-                                                    setRequestOpen(true)
-                                                  }
+                                                  onClick={() => {
+                                                    setRequestOpen(true);
+                                                    setidReviewToReport(review.idReview);
+                                                  }}
                                                 >
                                                   Reportar review
                                                 </button>

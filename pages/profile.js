@@ -14,6 +14,9 @@ export default function Profile() {
 
   const router = useRouter();
 
+  if (typeof window === "undefined") {
+    return null;
+  }
   if (session) {
     if (session.user.banned) {
       router.push("/banned")

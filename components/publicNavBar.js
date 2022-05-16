@@ -237,7 +237,7 @@ export const PublicNavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/peticiones">
+                <Link href="/requests">
                   <a
                     className={
                       router.asPath == "/petilciones"

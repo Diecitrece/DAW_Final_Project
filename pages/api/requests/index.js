@@ -13,7 +13,10 @@ export default async function handler(req, res) {
         if (req.query.id) {
           logger.info("REQUEST GET Request by id = " + req.query.id);
           return res.status(200).json(await Request.findById(req.query.id));
-        } else {
+        }else if (req.query.idUsuario) {
+          logger.info("REQUEST GET Request by idUsuario = " + req.query.idUsuario);
+          return res.status(200).json(await Request.find({"idUsuario":req.query.idUsuario}));
+        }else {
           logger.info("REQUEST GET Request and find all");
           return res.status(200).json(await Request.find({}));
         }

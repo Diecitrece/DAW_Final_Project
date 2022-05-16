@@ -1,6 +1,8 @@
 import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { AdminMenuBar } from "../../components/adminComponents/adminMenuBar";
+import DataTable from "react-data-table-component";
+import { useState, useEffect } from "react";
 
 export default function AdminReports() {
   const { data: session } = useSession();
@@ -16,9 +18,12 @@ export default function AdminReports() {
           <div className="flex flex-row w-full h-full">
             <AdminMenuBar />
             <div className="m-auto w-1/2">
-              <h1 className="w-3/5 text-6xl text-white text-center bg-red-900 rounded-lg mx-5">
-                Esta página está contruyéndose
-              </h1>
+              <DataTable
+                columns={columns}
+                data={dataTable}
+                pagination
+                paginationComponentOptions={paginationComponentOptions}
+              />
             </div>
           </div>
         </>

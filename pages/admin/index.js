@@ -33,7 +33,7 @@ export default function AdminIndex() {
         </>
       );
     }
-    router.push("/index");
+    router.push("/");
     return null;
   }
   router.push("/login");

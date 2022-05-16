@@ -25,6 +25,10 @@ export default function PublicIndex() {
     return null;
   }
   if (session) {
+    if (session.user.banned) {
+      router.push("/banned")
+      return null;
+    }
     return (
       <>
         <PublicNavBar />

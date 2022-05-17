@@ -67,7 +67,7 @@ export default function AdminBookRequest() {
       cell: (row) => (
         <>
           <div className="flex flex-row space-x-4">
-            <a href={"/admin/books/new/?=id"+row._id}>
+            <a href={"/admin/books/new/?id="+row._id}>
               <i className="fa fa-plus text-green-600"></i>
             </a>
             <a href="#" onClick={() => deleteRequest(row._id)}>

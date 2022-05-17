@@ -159,16 +159,12 @@ export default function LoadBook(props) {
                   ></h2>
                 )}
                 <p className="text-2xl font-semibold mb-4 text-slate-800/75">
-                  Autor/a del libro
+                  Autor/a del libro: {book.author}
                 </p>
                 <div className="mb-4">
                   <h4 className="text-xl font-semibold mb-2">Descripción</h4>
                   <p className="text-xl ">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Soluta obcaecati ratione nihil repellat esse mollitia,
-                    incidunt architecto distinctio? Quod amet eius ex
-                    necessitatibus ullam tenetur aperiam incidunt corrupti ad
-                    nostrum.
+                    {book.description}
                   </p>
                 </div>
                 <div className="mb-4">

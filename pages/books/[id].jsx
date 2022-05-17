@@ -10,7 +10,6 @@ import reviewConverter from "../../lib/reviewConverter";
 import calculateBookRating from "../../lib/bookRating";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-
 export default function LoadBook(props) {
   const { data: session } = useSession();
   const router = useRouter();
@@ -148,7 +147,14 @@ export default function LoadBook(props) {
               </div>
               <div className="w-full md:w-1/2 lg:w1/1 p-4">
                 <h1 className="text-4xl font-bold mb-2">{book.name}</h1>
-                <h2 className="text-4xl font-bold mb-2 text-yellow-400" dangerouslySetInnerHTML={{__html: reviewConverter(calculateBookRating(book))}}></h2>
+                {book.reviews && (
+                  <h2
+                    className="text-4xl font-bold mb-2 text-yellow-400"
+                    dangerouslySetInnerHTML={{
+                      __html: reviewConverter(calculateBookRating(book)),
+                    }}
+                  ></h2>
+                )}
                 <p className="text-2xl font-semibold mb-4 text-slate-800/75">
                   Autor/a del libro
                 </p>
@@ -233,8 +239,12 @@ export default function LoadBook(props) {
                                         {user.name}
                                       </p>
                                     </div>
-                                    <div className="flex text-yellow-400" dangerouslySetInnerHTML={{__html: reviewConverter(review.rating)}}>
-                                    </div>
+                                    <div
+                                      className="flex text-yellow-400"
+                                      dangerouslySetInnerHTML={{
+                                        __html: reviewConverter(review.rating),
+                                      }}
+                                    ></div>
                                   </div>
                                 </div>
                                 <div className="text-right">
@@ -245,7 +255,6 @@ export default function LoadBook(props) {
                                     >
                                       <div>
                                         <Menu.Button className="text-xl	font-bold hover:font-extrabold ">
-                                          <i className="fa-solid fa-ellipsis-vertical"></i>
                                           · · ·
                                         </Menu.Button>
                                       </div>

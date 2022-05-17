@@ -7,6 +7,12 @@ const bookSchema = new mongoose.Schema({
   ISBN: {
     type: "String",
   },
+  author: {
+    type: "String",
+  },
+  description: {
+    type: "String",
+  },
   reviews: {
     type: ["Mixed"],
   },

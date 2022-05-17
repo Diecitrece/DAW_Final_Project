@@ -12,6 +12,18 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const { idReview } = req.body;
+        if (!idReview) {
+          let reports = [];
+          const books = await Books.find();
+          books.map((book) => {
+            book.reviews.map((review) => {
+              review.reports.map((report) => {
+                reports.push({ bookName: book.name, report });
+              });
+            });
+          });
+          return res.status(200).json(reports);
+        }
         logger.info("REQUEST GET Reviews idReview: ", idReview);
         const OidReview = mongoose.Types.ObjectId(idReview);
         const book = await Books.find({ idReview: OidReview });

@@ -9,17 +9,21 @@ export default function AdminReports() {
   const router = useRouter();
 
   const [dataTable, setDataTable] = useState([]);
-  const [review, setReview] = useState({});
+
+  useEffect(() => {
+    loadReports();
+  }, []);
 
   const getReports = async () => {
     const res = await fetch("/api/reports");
     return await res.text();
   };
 
-  const getUserName = async (idUser) => {
-    const res = await fetch(`/api/users?id=${idUser}`);
+  const getUserName = async (id) => {
+    const res = await fetch(`/api/users?id=${id}`)
+    console.log(res)
     return await res.name;
-  };
+  }
 
   const loadReports = () => {
     getReports()
@@ -31,8 +35,14 @@ export default function AdminReports() {
 
   const columns = [
     {
-      name: "Usuario reportado",
-      selector: (row) => getUserName(row.idUser),
+      name: "Libro",
+      cell: (row) => {return row.bookName},
+      width: "220px",
+      sortable: true,
+    },
+    {
+      name: "Descripción",
+      cell: (row) => {return row.report.description},
       width: "220px",
       sortable: true,
     },
@@ -40,20 +50,16 @@ export default function AdminReports() {
       name: "Ofensivo",
       center: true,
       cell: (row) => {
-        if (row.report.offensive) {
+        if (row.report.descriptionOptions.offensive) {
           return (
             <>
-              <a href="#" onClick={() => deleteUser(row.idReview)}>
-                <i class="fa fa-trash text-red-600"></i>
-              </a>
+              <i class="fa fa-check text-green-600"></i>
             </>
           );
         } else {
           return (
             <>
-              <a href="#" onClick={() => deleteUser(row.idReview)}>
-                <i class="fa fa-trash text-red-600"></i>
-              </a>
+              <i class="fa fa-ban text-red-600 text-lg"></i>
             </>
           );
         }
@@ -64,20 +70,16 @@ export default function AdminReports() {
       name: "Incoerente",
       center: true,
       cell: (row) => {
-        if (row.report.irrealInfo) {
+        if (row.report.descriptionOptions.irrealInfo) {
           return (
             <>
-              <a href="#">
-                <i class="fa fa-check text-green-600 text-lg"></i>
-              </a>
+              <i class="fa fa-check text-green-600 text-lg"></i>
             </>
           );
         } else {
           return (
             <>
-              <a href="#">
-                <i class="fa fa-ban text-red-600 text-lg"></i>
-              </a>
+              <i class="fa fa-ban text-red-600 text-lg"></i>
             </>
           );
         }

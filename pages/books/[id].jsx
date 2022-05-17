@@ -9,6 +9,7 @@ import Report from "../../components/report";
 import reviewConverter from "../../lib/reviewConverter";
 import calculateBookRating from "../../lib/bookRating";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { set } from "mongoose";
 
 export default function LoadBook(props) {
   const { data: session } = useSession();
@@ -24,6 +25,8 @@ export default function LoadBook(props) {
   //let update =false;
   const [change, setChange] = useState(false);
   const [open, setOpen] = useState(false);
+
+  console.log()
 
   useEffect(async () => {
     await fetch(`/api/books?id=${id}`)
@@ -334,8 +337,10 @@ export default function LoadBook(props) {
                                                         ? "bg-blue-500 text-white"
                                                         : "text-gray-900"
                                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                                    onClick={() =>
+                                                    onClick={() => {
                                                       setRequestOpen(true)
+                                                      setidReviewToReport(review.idReview)
+                                                    }
                                                     }
                                                   >
                                                     Reportar review

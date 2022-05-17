@@ -128,7 +128,7 @@ export default function Reviews() {
             const user = findUser(review.idUser);
             return (
               <>
-                <div className="mb-4" key={review.id}>
+                <div className="m-10" key={review.id}>
                   <Link href={"books/" + review.idBook}>
                     <a>
                       <h3 className="text-xl text-center font-semibold">

@@ -13,9 +13,10 @@ export default async function handler(req, res) {
       try {
         const { idReview, idUser } = req.query;
         if (idReview) {
+          const OidReview = mongoose.Types.ObjectId(idReview);
           const review = await Books.find(
-            { "reviews.idReview": idReview },
-            { reviews: { $elemMatch: { idReview: idReview } } }
+            { "reviews.idReview": OidReview },
+            { reviews: { $elemMatch: { idReview: OidReview } } }
           );
           logger.info("REQUEST GET reviews: " + review);
           return res.status(200).json(review[0]);
@@ -23,17 +24,24 @@ export default async function handler(req, res) {
           let revUser = [];
           const reviews = await Books.find(
             { "reviews.idUser": idUser },
-            { reviews: 1 }
+            
           );
+          
           reviews.forEach((review) => {
             review.reviews.forEach((rev) => {
               if (rev.idUser === idUser) {
                 rev.idBook = review._id;
+                rev.bookName = review.name;
                 revUser.push(rev);
               }
             });
           });
+          //sort revUser by pubDate
+          revUser.sort((a, b) => {
+            return new Date(b.pubDate) - new Date(a.pubDate);
+          });
           logger.info("REQUEST GET reviews: " + reviews);
+          //return res.status(200).json(revUser);1
           return res.status(200).json(revUser);
         }
       } catch (error) {

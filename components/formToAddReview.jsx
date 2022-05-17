@@ -11,18 +11,6 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
 
   let date = new Date();
 
-  function getDate() {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    let hour = date.getHours();
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
-
-    return `${day}/${month}/${year} ${hour}:${minutes}:${seconds}`;
-  }
-
   const handleChange = (e) => {
     const { value, name } = e.target;
     setForm({
@@ -63,24 +51,6 @@ const FormModal = ({ idbook, setChange, setOpen, open, form, setForm }) => {
   return (
     <>
       <div className="flex flex-wrap ">
-        <button
-          onClick={() => {
-            setOpen(true);
-            setForm({
-              idReview: "",
-              idUser: session.user.id,
-              pubDate: getDate(),
-              description: "",
-              rating: "1",
-              reports: [],
-            });
-          }}
-          className="mb-5 mx-auto rounded-md
-                   border border-transparent shadow-sm px-4 py-2 bg-blue-600
-                    text-base font-medium text-white hover:bg-blue-700"
-        >
-          Añadir reseña
-        </button>
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"

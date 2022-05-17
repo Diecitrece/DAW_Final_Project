@@ -13,10 +13,12 @@ export default async function handler(req, res) {
       try {
         const { idReview } = req.body;
         logger.info("REQUEST GET Reviews idReview: ", idReview);
-        const book = await Books.find({ idReview: idReview });
+        const OidReview = mongoose.Types.ObjectId(idReview);
+        const book = await Books.find({ idReview: OidReview });
         let review = book[0].reviews.find((i) => {
-          return i.idReview === idReview;
+          return i.idReview.toString() === idReview;
         });
+        if (!review) return res.status(404).send("Review not found");
         logger.info("REQUEST GET Reviews: ", review);
         return res.status(200).json(review.reports);
       } catch (error) {
@@ -27,14 +29,16 @@ export default async function handler(req, res) {
       try {
         const { idReview, report } = req.body;
         logger.info("REQUEST POST Reviews idReview: ", idReview);
-        const book = await Books.find({ idReview: idReview }).lean();
+        const OidReview = mongoose.Types.ObjectId(idReview);
+        const book = await Books.find({ idReview: OidReview }).lean();
         let review = book[0].reviews.find((i) => {
-          return i.idReview === idReview;
+          return i.idReview.toString() === idReview;
         });
+        if (!review) return res.status(404).send("Review not found");
         review.reports.push(report);
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
         logger.info("REQUEST POST Reviews: ", review);
-        return res.status(200).json(review.reports);
+        return res.status(200).json(review);
       } catch (error) {
         logger.error("ERROR POST Reviews: ", error);
         return res.status(400).json({ error });
@@ -43,10 +47,12 @@ export default async function handler(req, res) {
       try {
         const { idReview } = req.body;
         logger.info("REQUEST DELETE Reviews idReview: ", idReview);
-        const book = await Books.find({ idReview: idReview }).lean();
+        const OidReview = mongoose.Types.ObjectId(idReview);
+        const book = await Books.find({ idReview: OidReview }).lean();
         let review = book[0].reviews.find((i) => {
-          return i.idReview === idReview;
+          return i.idReview.toString() === idReview;
         });
+        if (!review) return res.status(404).send("Review not found");
         review.reports = [];
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
         logger.info("REQUEST DELETE Reviews: ", review);

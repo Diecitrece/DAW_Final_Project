@@ -11,8 +11,14 @@ const styles = {
 export default function AdminIndex() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [book, setBook] = useState({});
+
   const [name, setName] = useState("");
   const [ISBN, setISBN] = useState("");
+
+  useEffect(() => {
+    loadBook();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,6 +37,19 @@ export default function AdminIndex() {
         ISBN: ISBN,
       }),
     });
+  };
+  const getBook = async () => {
+    const res = await fetch("/api/requests/?id=" + router.query.id);
+    console.table(res);
+    return await res.text();
+  };
+
+  const loadBook = () => {
+    getBook()
+      .then((response) => JSON.parse(response))
+      .then((data) => {
+        setBook(data);
+      });
   };
 
   if (typeof window === "undefined") {
@@ -53,6 +72,7 @@ export default function AdminIndex() {
                 <br />
                 <div className="mb-4">
                   <label
+                    placeholder={router.query.name}
                     className="block text-gray-400 text-base font-bold mb-2"
                     for="username"
                   >
@@ -75,6 +95,34 @@ export default function AdminIndex() {
                     onChange={(e) => setISBN(e.target.value)}
                     className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="ISBN"
+                    type="text"
+                  />
+                </div>
+                <div className="mb-6">
+                  <label
+                    className="block text-gray-400 text-base font-bold mb-2"
+                    for="ISBN"
+                  >
+                    Author
+                  </label>
+                  <input
+                    onChange={(e) => setISBN(e.target.value)}
+                    className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="author"
+                    type="text"
+                  />
+                </div>
+                <div className="mb-6">
+                  <label
+                    className="block text-gray-400 text-base font-bold mb-2"
+                    for="ISBN"
+                  >
+                    Descripcion
+                  </label>
+                  <input
+                    onChange={(e) => setISBN(e.target.value)}
+                    className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="description"
                     type="text"
                   />
                 </div>

@@ -5,12 +5,10 @@ import { useRouter } from "next/router";
 import { PublicNavBar } from "../../components/publicNavBar";
 import FormModal from "../../components/formToAddReview";
 import { Menu, Transition } from "@headlessui/react";
-import { data } from "autoprefixer";
 import Report from "../../components/report";
 import reviewConverter from "../../lib/reviewConverter";
 import calculateBookRating from "../../lib/bookRating";
 import "@fortawesome/fontawesome-free/css/all.css";
-
 
 export default function LoadBook(props) {
   const { data: session } = useSession();
@@ -21,6 +19,7 @@ export default function LoadBook(props) {
   const [error, setError] = useState(null);
   const [users, setUsers] = useState();
   const [requestOpen, setRequestOpen] = useState(false);
+  const [idReviewToReport, setidReviewToReport] = useState("");
 
   //let update =false;
   const [change, setChange] = useState(false);
@@ -66,6 +65,18 @@ export default function LoadBook(props) {
     var idUser = session.user.id;
   } else {
     var idUser = "";
+  }
+
+  function getDate() {
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+    return `${day}/${month}/${year} ${hour}:${minutes}:${seconds}`;
   }
 
   const [form, setForm] = useState({
@@ -136,7 +147,14 @@ export default function LoadBook(props) {
               </div>
               <div className="w-full md:w-1/2 lg:w1/1 p-4">
                 <h1 className="text-4xl font-bold mb-2">{book.name}</h1>
-                <h2 className="text-4xl font-bold mb-2 text-yellow-400" dangerouslySetInnerHTML={{__html: reviewConverter(calculateBookRating(book))}}></h2>
+                {book.reviews && (
+                  <h2
+                    className="text-4xl font-bold mb-2 text-yellow-400"
+                    dangerouslySetInnerHTML={{
+                      __html: reviewConverter(calculateBookRating(book)),
+                    }}
+                  ></h2>
+                )}
                 <p className="text-2xl font-semibold mb-4 text-slate-800/75">
                   Autor/a del libro
                 </p>
@@ -161,6 +179,26 @@ export default function LoadBook(props) {
                 <p className="text-2xl font-semibold mb-4 text-slate-800/75">
                   Reseñas de los usuarios
                 </p>
+                <div className="text-center">
+                  <button
+                    onClick={() => {
+                      setOpen(true);
+                      setForm({
+                        idReview: "",
+                        idUser: session.user.id,
+                        pubDate: getDate(),
+                        description: "",
+                        rating: "1",
+                        reports: [],
+                      });
+                    }}
+                    className="mb-5 mx-auto rounded-md justify-center
+                   border border-transparent shadow-sm px-4 py-2 bg-blue-600
+                    text-base font-medium text-white hover:bg-blue-700"
+                  >
+                    Añadir reseña
+                  </button>
+                </div>
                 <FormModal
                   idbook={id}
                   setChange={setChange}
@@ -169,7 +207,11 @@ export default function LoadBook(props) {
                   form={form}
                   setForm={setForm}
                 />
-                <Report open={requestOpen} setOpen={setRequestOpen} />
+                <Report
+                  open={requestOpen}
+                  setOpen={setRequestOpen}
+                  idReview={idReviewToReport}
+                />
 
                 {/*check if there are reviews*/}
                 {book.reviews && users ? (
@@ -197,8 +239,12 @@ export default function LoadBook(props) {
                                         {user.name}
                                       </p>
                                     </div>
-                                    <div className="flex text-yellow-400" dangerouslySetInnerHTML={{__html: reviewConverter(review.rating)}}>
-                                    </div>
+                                    <div
+                                      className="flex text-yellow-400"
+                                      dangerouslySetInnerHTML={{
+                                        __html: reviewConverter(review.rating),
+                                      }}
+                                    ></div>
                                   </div>
                                 </div>
                                 <div className="text-right">
@@ -209,7 +255,6 @@ export default function LoadBook(props) {
                                     >
                                       <div>
                                         <Menu.Button className="text-xl	font-bold hover:font-extrabold ">
-                                          <i className="fa-solid fa-ellipsis-vertical"></i>
                                           · · ·
                                         </Menu.Button>
                                       </div>

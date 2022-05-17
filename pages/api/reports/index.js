@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         review.reports.push(report);
         await Books.findOneAndReplace({ _id: book[0]._id }, book[0]);
         logger.info("REQUEST POST Reviews: ", review);
-        return res.status(200).json(review.reports);
+        return res.status(200).json(review);
       } catch (error) {
         logger.error("ERROR POST Reviews: ", error);
         return res.status(400).json({ error });

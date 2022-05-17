@@ -1,13 +1,62 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, getSession } from "next-auth/react";
+import { Input } from "postcss";
 
-const Report = ({ setOpen, open }) => {
+const Report = ({ setOpen, open, idReview }) => {
   const cancelButtonRef = useRef(null);
 
   //const [open, setOpen] = useState(false);
 
   const { data: session } = useSession();
+
+  const [form, setForm] = useState({
+    description: "",
+    offensive: false,
+    irrealInfo: false,
+  });
+
+  console.log(form);
+  //console.log(reportObject);
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let reportObject = {
+      idReview: idReview,
+      report: {
+        descriptionOptions: {
+          offensive: form.offensive,
+          irrealInfo: form.irrealInfo,
+        },
+        description: form.description,
+      },
+    };
+
+    console.log(reportObject);
+
+    postData(reportObject);
+  };
+
+  const postData = async (report) => {
+    try {
+      const res = await fetch("/api/reports", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(report),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -58,7 +107,7 @@ const Report = ({ setOpen, open }) => {
             transform transition-all 
             sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                 >
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                       <div className=" sm:flex sm:items-start">
                         <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -75,22 +124,26 @@ const Report = ({ setOpen, open }) => {
                                   htmlFor="first_name"
                                   className="block text-sm font-medium leading-5 text-gray-700"
                                 >
-                                  Puntuación
+                                  Opciones
                                 </label>
                                 <div className="mt-1 rounded-md shadow-sm">
-                                  <select
-                                    name="rating"
-                                    required
-                                    className=" block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                                  >
-                                    <option value="1">Falta de repeto</option>
-                                    <option value="2">
-                                      Lenguaje inapropiado
-                                    </option>
-                                    <option value="3">
-                                      Incitación al odio
-                                    </option>
-                                  </select>
+                                  <input
+                                    type="checkbox"
+                                    name="offensive"
+                                    onChange={handleChange}
+                                  />
+                                  <span className="ml-2 text-sm font-medium leading-5 text-gray-900">
+                                    Ofensivo
+                                  </span>
+                                  <br></br>
+                                  <input
+                                    type="checkbox"
+                                    name="irrealInfo"
+                                    onChange={handleChange}
+                                  />
+                                  <span className="ml-2 text-sm font-medium leading-5 text-gray-900">
+                                    Información irreal
+                                  </span>
                                 </div>
                               </div>
                               <div className="sm:col-span-4">
@@ -106,6 +159,7 @@ const Report = ({ setOpen, open }) => {
                                     name="description"
                                     type="text"
                                     required
+                                    onChange={handleChange}
                                     placeholder="Describe el reporte..."
                                     className="px-3 py-2 w-full border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                   />
@@ -123,6 +177,9 @@ const Report = ({ setOpen, open }) => {
                    border border-transparent shadow-sm px-4 py-2 bg-blue-600
                     text-base font-medium text-white hover:bg-blue-700 
                      sm:ml-3 sm:w-auto sm:text-sm"
+                     onClick={() => {
+                      setOpen(false);
+                    }}
                       >
                         Enviar
                       </button>

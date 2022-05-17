@@ -55,7 +55,7 @@ export default function AdminBookRequest() {
       width: "200px",
     },
     {
-      name: "Descripcion",
+      name: "Descripción",
       selector: (row) => (
         <>
           <span className="whitespace-normal">{row.description}</span>

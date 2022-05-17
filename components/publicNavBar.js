@@ -64,7 +64,7 @@ export const PublicNavBar = () => {
                 className="mr-3 h-6 sm:h-9"
               />
               <span className="self-center text-xl font-semibold whitespace-nowrap text-white">
-                Hermanos Amoros
+                Hermanos Amorós
               </span>
             </a>
           </Link>
@@ -176,6 +176,7 @@ export const PublicNavBar = () => {
                 (session.user.role == "Admin" ? "" : "hidden ") +
                 styles.closeSession
               }
+              title="Panel de administración"
             >
               <i className="fa fa-lock"></i>
             </a>
@@ -183,12 +184,13 @@ export const PublicNavBar = () => {
               href="#"
               className={styles.closeSession}
               onClick={() => signOut()}
+              title="Cerrar sesión"
             >
               <i className="fas fa-sign-out-alt text"></i>
             </a>
           </div>
           <div className="hidden justify-between items-center w-full md:flex md:w-auto md:order-4">
-            <p className={styles.liNavBar}>Bienvenido {session.user.name}</p>
+            <p className={styles.liNavBar}>Bienvenid@, {session.user.name}</p>
           </div>
           <div
             className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
@@ -235,7 +237,7 @@ export const PublicNavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/peticiones">
+                <Link href="/requests">
                   <a
                     className={
                       router.asPath == "/petilciones"

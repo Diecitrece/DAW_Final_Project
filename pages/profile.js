@@ -14,7 +14,14 @@ export default function Profile() {
 
   const router = useRouter();
 
+  if (typeof window === "undefined") {
+    return null;
+  }
   if (session) {
+    if (session.user.banned) {
+      router.push("/banned")
+      return null;
+    }
     useEffect(() => {
       if (userData) {
         let url = "api/reviews?idUser=" + userData._id;
@@ -69,7 +76,7 @@ export default function Profile() {
             <p>Correo: {userData.email}</p>
             <p className={userData.banned ? "" : "hidden"}>
               <span className="font-bold text-red-500">
-                En periodo de sancion
+                En período de sanción
               </span>
             </p>
             <p>Reseñas: {reviewNum}</p>

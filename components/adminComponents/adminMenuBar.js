@@ -30,7 +30,7 @@ export const AdminMenuBar = () => {
               src="https://mestreacasa.gva.es/c/document_library/get_file?folderId=500009883339&name=DLFE-600502.png"
               className="m-auto h-28"
             />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white m-auto">
+            <span className="self-center text-xl font-semibold whitespace-nowrap text-white m-auto">
               Hermanos Amorós
             </span>
           </li>

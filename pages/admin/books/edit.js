@@ -100,6 +100,36 @@ export default function AdminIndex() {
                     type="text"
                   />
                 </div>
+                <div className="mb-6">
+                  <label
+                    className="block text-gray-400 text-base font-bold mb-2"
+                    for="author"
+                  >
+                    Author
+                  </label>
+                  <input
+                    placeholder={book.author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                    className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="author"
+                    type="text"
+                  />
+                </div>
+                <div className="mb-6">
+                  <label
+                    className="block text-gray-400 text-base font-bold mb-2"
+                    for="description"
+                  >
+                    Descripción
+                  </label>
+                  <input
+                    placeholder={book.description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="description"
+                    type="text"
+                  />
+                </div>
                 <div className="flex items-center justify-between">
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Editar

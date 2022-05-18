@@ -11,10 +11,13 @@ const styles = {
 export default function AdminIndex() {
   const { data: session } = useSession();
   const router = useRouter();
-  const [book, setBook] = useState({});
 
+  const [book, setBook] = useState({});
   const [name, setName] = useState("");
   const [ISBN, setISBN] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+
 
   useEffect(() => {
     loadBook();
@@ -33,14 +36,16 @@ export default function AdminIndex() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
-        ISBN: ISBN,
+        name: name ,
+        ISBN: ISBN ,
+        author: author ,
+        description: description ,
       }),
     });
   };
+
   const getBook = async () => {
-    const res = await fetch("/api/requests/?id=" + router.query.id);
-    console.table(res);
+    const res = await fetch("/api/requests?id=" + router.query.id);
     return await res.text();
   };
 
@@ -67,18 +72,18 @@ export default function AdminIndex() {
                 className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4"
               >
                 <h2 className="text-xl font-bold text-gray-400">
-                  Nuevo libro:
+                  Editar: {book.name}
                 </h2>
                 <br />
                 <div className="mb-4">
                   <label
-                    placeholder={router.query.name}
                     className="block text-gray-400 text-base font-bold mb-2"
                     for="username"
                   >
                     Nombre
                   </label>
                   <input
+                    placeholder={book.name}
                     onChange={(e) => setName(e.target.value)}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
                     id="name"
@@ -92,6 +97,7 @@ export default function AdminIndex() {
                     ISBN
                   </label>
                   <input
+                    placeholder={book.ISBN}
                     onChange={(e) => setISBN(e.target.value)}
                     className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="ISBN"
@@ -101,12 +107,13 @@ export default function AdminIndex() {
                 <div className="mb-6">
                   <label
                     className="block text-gray-400 text-base font-bold mb-2"
-                    for="ISBN"
+                    for="author"
                   >
                     Author
                   </label>
                   <input
-                    onChange={(e) => setISBN(e.target.value)}
+                    placeholder={book.author}
+                    onChange={(e) => setAuthor(e.target.value)}
                     className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="author"
                     type="text"
@@ -115,12 +122,13 @@ export default function AdminIndex() {
                 <div className="mb-6">
                   <label
                     className="block text-gray-400 text-base font-bold mb-2"
-                    for="ISBN"
+                    for="description"
                   >
-                    Descripcion
+                    Descripción
                   </label>
                   <input
-                    onChange={(e) => setISBN(e.target.value)}
+                    placeholder={book.description}
+                    onChange={(e) => setDescription(e.target.value)}
                     className="shadow appearance-none border border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="description"
                     type="text"
@@ -128,7 +136,7 @@ export default function AdminIndex() {
                 </div>
                 <div className="flex items-center justify-between">
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Agregar
+                    Editar
                   </button>
                 </div>
               </form>

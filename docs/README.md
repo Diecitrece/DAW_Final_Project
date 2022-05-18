@@ -3,6 +3,8 @@
 
 All developers need to understand our app
 
+We highly recommend checking this documentation in its [notion](https://bubbly-citron-a58.notion.site/Technical-Documentation-b0772341b31d422a9268a1cc8cba1f32) main page.
+
 [Components](Technical%20Documentation%20b0772341b31d422a9268a1cc8cba1f32/Components%20dfee9b5b3714409a834a64da62cb12ca.md)
 
 [Environment](Technical%20Documentation%20b0772341b31d422a9268a1cc8cba1f32/Environment%2039eea5ab6ead4839bd0a1cc813b428ba.md)

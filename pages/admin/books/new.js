@@ -42,6 +42,18 @@ export default function AdminIndex() {
         description: description ,
       }),
     });
+    deleteRequest();
+  };
+  const deleteRequest = async (id) => {
+    const res = await fetch("/api/requests", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: router.query.id,
+      }),
+    });
   };
 
   const getBook = async () => {

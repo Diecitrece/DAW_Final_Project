@@ -39,7 +39,7 @@ export default function PublicIndex() {
             return (
               <>
 
-                <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-lg bg-gray-200 border-gray-400 mt-12 mx-auto px-8 py-6 w-80 text-center" >
+                <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-lg bg-gray-200 border-gray-400 mt-6 mb-6 mx-auto px-8 py-6 w-80 text-center" >
                     <a href="">
                         <img class="rounded-t-lg h-80 pl-6" src="https://edit.org/photos/img/blog/ppe-crear-portadas-de-libros-online.jpg-840.jpg" alt="" />
                     </a>

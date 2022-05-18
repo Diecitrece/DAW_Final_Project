@@ -118,7 +118,11 @@ export default function LoadBook(props) {
   };
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return (
+      <div className="loading">
+        <i className="fas fa-spinner" id="spinner"></i>
+      </div>
+    );
   }
 
   if (error) {
@@ -140,7 +144,7 @@ export default function LoadBook(props) {
           />
           <PublicNavBar />
           <div className="container mx-auto">
-            <div className="flex flex-wrap p-10 ">
+            <div className="flex flex-wrap p-10 mt-20">
               <div className="w-full md:w-1/3 p-4 ">
                 <img
                   src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg"

@@ -1,7 +1,7 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Images from 'next/image'
+import Images from "next/image";
 
 export const AdminMenuBar = () => {
   const { data: session } = useSession();
@@ -32,7 +32,11 @@ export const AdminMenuBar = () => {
               className="m-auto h-28"
             />
             <span className="">
-              <Images src="/img/PhantomLibraryLogo.png" width="650px" height="165px"/>
+              <Images
+                src="/img/PhantomLibraryLogo.png"
+                width="650px"
+                height="165px"
+              />
             </span>
           </li>
           <li>

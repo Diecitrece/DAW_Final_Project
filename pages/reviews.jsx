@@ -100,7 +100,11 @@ export default function Reviews() {
   }
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return (
+      <div className="loading">
+        <i className="fas fa-spinner" id="spinner"></i>
+      </div>
+    );
   }
 
   if (error) {
@@ -119,7 +123,7 @@ export default function Reviews() {
           setForm={setForm}
         />
 
-        <h1 className="text-4xl font-bold text-center m-5">Tus reseñas</h1>
+        <h1 className="text-4xl font-bold text-center m-5 mt-20">Tus reseñas</h1>
         {reviews.length === 0 && <p>No hay reseñas</p>}
         {reviews.length > 0 &&
           //if users is not null

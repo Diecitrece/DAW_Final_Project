@@ -19,7 +19,7 @@ export default function Profile() {
   }
   if (session) {
     if (session.user.banned) {
-      router.push("/banned")
+      router.push("/banned");
       return null;
     }
     useEffect(() => {
@@ -61,7 +61,7 @@ export default function Profile() {
       <>
         <PublicNavBar />
         <div className="flex w-full h-screen p-4">
-          <div className="w-40 h-min bg-black mx-4 border-2 border-black">
+          <div className="w-40 h-min bg-black mx-4 border-2 border-black mt-20">
             <Image
               src={userData.image}
               width="100%"
@@ -71,7 +71,7 @@ export default function Profile() {
               priority="low"
             />
           </div>
-          <div>
+          <div className="mt-20">
             <p>{userData.name}</p>
             <p>Correo: {userData.email}</p>
             <p className={userData.banned ? "" : "hidden"}>

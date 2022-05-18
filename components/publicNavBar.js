@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import React from "react";
 import MyDialog from "./requestModal";
-import Images from 'next/image'
+import Images from "next/image";
 
 const styles = {
   liNavBar:
@@ -57,7 +57,7 @@ export const PublicNavBar = () => {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
         rel="stylesheet"
       />
-      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-800">
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-800 fixed w-full top-0 z-50">
         <div className="container flex flex-row m-auto justify-between">
           <Link href="/">
             <a className="flex items-center">
@@ -66,7 +66,11 @@ export const PublicNavBar = () => {
                 className="mr-3 h-6 sm:h-9"
               />
               <span className="self-center text-xl font-semibold whitespace-nowrap text-white">
-              <Images src="/img/PhantomLibraryLogo.png" width="150px" height="32px"/>
+                <Images
+                  src="/img/PhantomLibraryLogo.png"
+                  width="150px"
+                  height="32px"
+                />
               </span>
             </a>
           </Link>

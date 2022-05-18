@@ -1,6 +1,6 @@
 # Technical Documentation
 
-All developers needs to understand our code
+All developers need to understand our code
 
 [Components](Technical%20Documentation%20b0772341b31d422a9268a1cc8cba1f32/Components%20dfee9b5b3714409a834a64da62cb12ca.md)
 

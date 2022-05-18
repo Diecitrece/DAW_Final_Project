@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import React from "react";
 import MyDialog from "./requestModal";
+import Images from 'next/image'
+
 const styles = {
   liNavBar:
     "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:hover:text-white text-gray-400 hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700",
@@ -64,7 +66,7 @@ export const PublicNavBar = () => {
                 className="mr-3 h-6 sm:h-9"
               />
               <span className="self-center text-xl font-semibold whitespace-nowrap text-white">
-                Hermanos Amorós
+              <Images src="/img/PhantomLibraryLogo.png" width="150px" height="32px"/>
               </span>
             </a>
           </Link>

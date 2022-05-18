@@ -35,14 +35,10 @@ export default function AdminIndex() {
               <p className="text-center text-xl">Aquí podras administrar la información de la aplicación</p> <br /> <br />
 
               <div className="m-10">
-                <h1 className="font-bold text-2xl">Uso de la aplicación en el último año</h1> <br />
-                <Images src="/img/circulo1.jpg" width="600px" height="350px"/>  <Images src="/img/barras1.jpg" width="600px" height="350px"/>
+                <h1 className="font-bold text-2xl">Uso y Participacion de los usuarios en la aplicación en el último año</h1> <br />
+                <Images src="/img/circulo1.jpg" width="600px" height="350px"/>  <Images src="/img/barras2.jpg" width="600px" height="350px"/>
               </div>
               
-              <div className="m-10">
-                <h1 className="font-bold text-2xl">Participacion de los usuarios en el último año</h1> <br />
-                <Images src="/img/circulo2.jpg" width="600px" height="350px"/>  <Images src="/img/barras2.jpg" width="600px" height="350px"/>
-              </div>
             </div>
           </div>
         </>

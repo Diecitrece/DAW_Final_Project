@@ -21,7 +21,7 @@ export default function AdminIndex() {
         <>
           <div className="flex flex-row h-full">
             <AdminMenuBar />
-            <div className="">
+            <div className="w-full">
 
               <div className="text-right m-5">
               <a href="/"><button className={styles.loginButton}>Parte pública</button></a>
@@ -36,7 +36,7 @@ export default function AdminIndex() {
 
               <div className="m-10">
                 <h1 className="font-bold text-2xl">Uso y Participacion de los usuarios en la aplicación en el último año</h1> <br />
-                <Images src="/img/circulo1.jpg" width="600px" height="350px"/>  <Images src="/img/barras2.jpg" width="600px" height="350px"/>
+                <div className="flex "><div className="w-1/2 inline mr-4"><Images src="/img/circulo1.jpg" width="100%" height="100%" layout="responsive" objectFit="contain" priority="low"/> </div> <div className="inline w-1/2"><Images src="/img/barras2.jpg" width="100%" height="100%" layout="responsive" objectFit="contain" priority="low"/></div></div>
               </div>
               
             </div>

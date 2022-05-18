@@ -62,6 +62,7 @@ export default function AdminIndex() {
       selector: (row) => row.name,
       width: "220px",
       sortable: true,
+      
     },
     {
       name: "Email",
@@ -103,7 +104,7 @@ export default function AdminIndex() {
     noRowsPerPage: true,
     rangeSeparatorText: "de",
   };
-
+  
   if (typeof window === "undefined") {
     return null;
   }
@@ -127,7 +128,7 @@ export default function AdminIndex() {
                 columns={columns}
                 data={dataTable}
                 pagination
-                paginationComponentOptions={paginationComponentOptions}
+                paginationComponentOptions={paginationComponentOptions}          
               />
             </div>
           </div>

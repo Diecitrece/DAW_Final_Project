@@ -42,6 +42,18 @@ export default function AdminIndex() {
         description: description ,
       }),
     });
+    deleteRequest();
+  };
+  const deleteRequest = async (id) => {
+    const res = await fetch("/api/requests", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: router.query.id,
+      }),
+    });
   };
 
   const getBook = async () => {
@@ -136,7 +148,7 @@ export default function AdminIndex() {
                 </div>
                 <div className="flex items-center justify-between">
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Editar
+                    Guardar
                   </button>
                 </div>
               </form>

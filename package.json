@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prettier:write": "npx prettier --write ."
+    "test": "jest --verbose --coverage",
+    "prettier:write": "npx prettier --write .",
+    "debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
+    "jest": "^27.5.1",
     "prettier": "^2.6.0"
   }
 }

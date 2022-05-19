@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         }
         logger.info("REQUEST GET Reviews idReview: ", idReview);
         const OidReview = mongoose.Types.ObjectId(idReview);
-        const book = await Books.find({ idReview: OidReview });
+        const book = await Books.find({ "reviews.idReview": OidReview });
         let review = book[0].reviews.find((i) => {
           return i.idReview.toString() === idReview;
         });
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         const { idReview, report } = req.body;
         logger.info("REQUEST POST Reviews idReview: ", idReview);
         const OidReview = mongoose.Types.ObjectId(idReview);
-        const book = await Books.find({ idReview: OidReview }).lean();
+        const book = await Books.find({ "reviews.idReview": OidReview }).lean();
         let review = book[0].reviews.find((i) => {
           return i.idReview.toString() === idReview;
         });
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
         const { idReview } = req.body;
         logger.info("REQUEST DELETE Reviews idReview: ", idReview);
         const OidReview = mongoose.Types.ObjectId(idReview);
-        const book = await Books.find({ idReview: OidReview }).lean();
+        const book = await Books.find({ "reviews.idReview": OidReview }).lean();
         let review = book[0].reviews.find((i) => {
           return i.idReview.toString() === idReview;
         });

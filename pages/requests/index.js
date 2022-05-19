@@ -13,34 +13,55 @@ export default function PublicIndex() {
   const { data: session } = useSession();
   const router = useRouter();
   const [requests, setRequests] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/requests?idUsuario=${session.user.id}`)
       .then((response) => response.json())
-      .then((data) => setRequests(data));
+      .then((data) => {
+        setRequests(data);
+        setLoading(false);
+      });
   }, []);
 
   if (typeof window === "undefined") {
     return null;
   }
+  if (isLoading) {
+    return (
+      <div className="loading">
+        <i className="fas fa-spinner" id="spinner"></i>
+      </div>
+    );
+  }
   if (session) {
     return (
       <>
         <PublicNavBar />
-        <h1 className="text-center mt-10 mb-4 text-4xl font-bold">Tus peticiones de libros abiertas</h1>
+        <h1 className="text-center mt-10 mb-4 text-4xl font-bold mt-20">
+          Tus peticiones de libros abiertas
+        </h1>
         <div className="p-1">
-
-            
           {requests.map((request, index) => {
             return (
               <>
-                      
                 <div className="border-2 border-inherit m-6 p-6 rounded-lg">
-                    <p className="text-lg mb-4 break-words"> <b className="text-xl">Título:</b>&nbsp;&nbsp;  {request.name} </p>
-                    <p className="text-lg mb-4 break-words"> <b className="text-xl">Autor:</b>&nbsp;&nbsp;  {request.author} </p>
-                    <p className="text-lg mb-4 break-words"> <b className="text-xl">Descripción:</b>&nbsp;&nbsp;  {request.description}</p> 
+                  <p className="text-lg mb-4 break-words">
+                    {" "}
+                    <b className="text-xl">Título:</b>&nbsp;&nbsp;{" "}
+                    {request.name}{" "}
+                  </p>
+                  <p className="text-lg mb-4 break-words">
+                    {" "}
+                    <b className="text-xl">Autor:</b>&nbsp;&nbsp;{" "}
+                    {request.author}{" "}
+                  </p>
+                  <p className="text-lg mb-4 break-words">
+                    {" "}
+                    <b className="text-xl">Descripción:</b>&nbsp;&nbsp;{" "}
+                    {request.description}
+                  </p>
                 </div>
-                     
               </>
             );
           })}

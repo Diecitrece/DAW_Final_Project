@@ -18,7 +18,6 @@ export default function AdminIndex() {
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
 
-
   useEffect(() => {
     loadBook();
   }, []);
@@ -36,10 +35,10 @@ export default function AdminIndex() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name ,
-        ISBN: ISBN ,
-        author: author ,
-        description: description ,
+        name: name,
+        ISBN: ISBN,
+        author: author,
+        description: description,
       }),
     });
     deleteRequest();
@@ -84,7 +83,7 @@ export default function AdminIndex() {
                 className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4"
               >
                 <h2 className="text-xl font-bold text-gray-400">
-                  Editar: {book.name}
+                  Crear: {book.name}
                 </h2>
                 <br />
                 <div className="mb-4">

@@ -12,17 +12,26 @@ export default function Banned() {
     if (session.user.banned) {
       return (
         <>
-          baneado tontito
-          <a href="#" onClick={() => signOut()} title="Cerrar sesión">
-            Cerrar sesion
-          </a>{" "}
+          <div className="flex flex-col w-full h-screen justify-center items-center bg-gray-500">
+            <div
+              className="flex flex-col p-20 bg-red-500 text-2xl justify-center rounded-3xl items-center text-center h-20 hover:cursor-pointer hover:bg-red-400"
+              onClick={() => signOut()}
+            >
+              Estás baneado
+              <br />
+              No puedes acceder a ninguna página mientras estés baneado
+              <span className="text-yellow-100 inline">
+                Pulsa para cerrar sesión
+              </span>
+            </div>
+          </div>
         </>
       );
     }
     router.push("/");
     return null;
   }
-  router.push("/login")
+  router.push("/login");
   return null;
 }
 
